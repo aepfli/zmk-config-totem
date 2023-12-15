@@ -151,13 +151,15 @@
             >;
         };
 
-        layer_6 {
+        idea {
             bindings = <
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
+        &trans         &trans         &trans         &trans         &trans    &trans  &trans  &trans  &trans  &trans
+        &kp LC(N)      &kp LS(LC(N))  &kp LS(LC(A))  &trans         &trans    &trans  &trans  &trans  &trans  &trans
+&trans  &kp LA(LC(M))  &kp LA(LC(P))  &kp LA(LC(C))  &kp LA(LC(V))  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                                      &trans         &trans         &trans    &trans  &trans  &trans
             >;
+
+            label = "idea";
         };
 
         tvp1_layer {

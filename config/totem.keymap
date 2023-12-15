@@ -120,10 +120,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-        &none   &none   &none   &kp EQUAL  &kp LBRC    &kp RBRC  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_PLUS
-        &trans  &trans  &trans  &trans     &kp LBKT    &kp RBKT  &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_MINUS
-&trans  &none   &trans  &trans  &trans     &kp LPAR    &kp RPAR  &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_MULTIPLY  &trans
-                        &trans  &trans     &trans      &mo 4     &kp KP_N0  &trans
+        &kp EXCLAMATION  &kp AT_SIGN  &kp HASH        &kp DOLLAR    &kp LBRC    &kp RBRC  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_PLUS
+        &kp PERCENT      &kp CARET    &kp AMPERSAND   &kp ASTERISK  &kp LBKT    &kp RBKT  &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_MINUS
+&trans  &kp              &trans       &kp UNDERSCORE  &kp EQUAL     &kp LPAR    &kp RPAR  &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_MULTIPLY  &trans
+                                      &trans          &trans        &trans      &mo 4     &kp KP_N0  &trans
             >;
         };
 

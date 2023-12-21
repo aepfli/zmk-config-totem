@@ -88,8 +88,8 @@
 
         navigation {
             bindings = <
-       &none       &none      &none       &none        &none         &kp PG_UP  &kp HOME  &kp UP    &kp END    &kp PRINTSCREEN
-       &kp LGUI    &kp LALT   &kp LCTRL   &kp LSHFT    &none         &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &kp INS
+       &kp N1      &kp N2     &kp N3      &kp N4       &kp N5        &kp PG_UP  &kp HOME  &kp UP    &kp END    &kp PRINTSCREEN
+       &kp N6      &kp N7     &kp N8      &kp N9       &kp N0        &kp PG_DN  &kp LEFT  &kp DOWN  &kp RIGHT  &kp INS
 &none  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_REDO    &kp INS    &none     &none     &none      &none            &none
                               &mo 4       &mo 3        &caps_word    &none      &none     &none
             >;
@@ -114,10 +114,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-            &kp N1               &kp N2              &kp N3            &kp N4                      &kp N5              &kp N6             &kp N7                       &kp N8          &kp N9          &kp N0
-            &mt LGUI UNDERSCORE  &mt LEFT_ALT MINUS  &mt LCTRL DOLLAR  &mt LSHFT LEFT_PARENTHESIS  &kp LEFT_BRACKET    &kp RIGHT_BRACKET  &mt RSHFT RIGHT_PARENTHESIS  &mt RCTRL AMPS  &mt RALT EQUAL  &kp PLUS
-&kp RA(N5)  &kp EXCL             &kp AT_SIGN         &kp HASH          &kp LEFT_BRACE              &kp PERCENT         &kp CARET          &kp RIGHT_BRACE              &kp ASTERISK    &kp TILDE       &kp SLASH  &kp PIPE
-                                                     &none             &none                       &none               &kp DOUBLE_QUOTES  &lt 3 SQT                    &kp GRAVE
+            &kp EXCLAMATION    &kp AT_SIGN        &kp HASH         &kp DOLLAR                  &kp PERCENT         &kp LCTRL          &kp AMPERSAND          &kp ASTERISK          &kp MINUS         &kp EQUAL
+            &mt LGUI QUESTION  &mt LEFT_ALT PLUS  &mt LCTRL SLASH  &mt LSHFT LEFT_PARENTHESIS  &kp LEFT_BRACKET    &kp RIGHT_BRACKET  &kp RIGHT_PARENTHESIS  &kp NON_US_BACKSLASH  &kp UNDERSCORE    &kp COLON
+&kp RA(N5)  &kp PIPE           &trans             &trans           &kp LEFT_BRACE              &kp LESS_THAN       &kp GREATER_THAN   &kp RIGHT_BRACE        &kp LESS_THAN         &kp GREATER_THAN  &kp QUESTION  &kp PIPE
+                                                  &none            &none                       &none               &kp DOUBLE_QUOTES  &lt 3 SQT              &kp GRAVE
             >;
         };
 

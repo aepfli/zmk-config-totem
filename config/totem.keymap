@@ -108,10 +108,10 @@
             label = "nav";
         };
 
-        numbers {
+        symbols {
             // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 
-            label = "NUM";
+            label = "SYM";
 
             // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
             //             ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓   ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
@@ -125,10 +125,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-            &kp EXCLAMATION    &kp AT_SIGN        &kp HASH         &kp DOLLAR                  &kp PERCENT         &kp LCTRL          &kp AMPERSAND          &kp ASTERISK          &kp MINUS         &kp EQUAL
-            &mt LGUI QUESTION  &mt LEFT_ALT PLUS  &mt LCTRL SLASH  &mt LSHFT LEFT_PARENTHESIS  &kp LEFT_BRACKET    &kp RIGHT_BRACKET  &kp RIGHT_PARENTHESIS  &kp NON_US_BACKSLASH  &kp UNDERSCORE    &kp COLON
-&kp RA(N5)  &kp PIPE           &trans             &trans           &kp LEFT_BRACE              &kp LESS_THAN       &kp GREATER_THAN   &kp RIGHT_BRACE        &kp LESS_THAN         &kp GREATER_THAN  &kp QUESTION  &kp PIPE
-                                                  &none            &none                       &none               &kp DOUBLE_QUOTES  &lt 3 SQT              &kp GRAVE
+            &kp EXCLAMATION  &kp AT_SIGN  &kp HASH  &kp DOLLAR            &kp PERCENT         &kp LCTRL          &kp AMPERSAND          &kp ASTERISK          &kp MINUS         &kp EQUAL
+            &kp QUESTION     &kp PLUS     &kp FSLH  &kp LEFT_PARENTHESIS  &kp LEFT_BRACKET    &kp RIGHT_BRACKET  &kp RIGHT_PARENTHESIS  &kp NON_US_BACKSLASH  &kp UNDERSCORE    &kp COLON
+&kp RA(N5)  &kp PIPE         &trans       &trans    &kp LEFT_BRACE        &kp LESS_THAN       &kp GREATER_THAN   &kp RIGHT_BRACE        &kp LESS_THAN         &kp GREATER_THAN  &kp QUESTION  &kp PIPE
+                                          &none     &none                 &none               &kp DOUBLE_QUOTES  &lt 3 SQT              &kp GRAVE
             >;
         };
 

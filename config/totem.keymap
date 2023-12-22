@@ -90,10 +90,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-             &kp Q       &kp W       &kp E        &kp R        &kp T        &kp Y    &kp U        &kp I        &kp O       &kp P
-             &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F  &kp G        &kp H    &mt RSHFT J  &mt RCTRL K  &mt RALT L  &mt RGUI SEMICOLON
-&mo_tog 4 4  &kp Z       &kp X       &kp C        &kp V        &kp B        &kp N    &kp M        &kp COMMA    &kp DOT     &kp FSLH            &kp BSLH
-                                     &kp DEL      &lt 2 TAB    &kp SPACE    &kp RET  &lt 1 ESC    &kp BSPC
+             &kp Q       &kp W       &kp E        &kp R        &kp T        &kp Y    &kp U         &kp I        &kp O       &kp P
+             &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F  &kp G        &kp H    &mt RSHFT J   &mt RCTRL K  &mt RALT L  &mt RGUI SEMICOLON
+&mo_tog 4 4  &kp Z       &kp X       &kp C        &kp V        &kp B        &kp N    &kp M         &kp COMMA    &kp DOT     &kp FSLH            &kp BSLH
+                                     &kp DEL      &lt 2 TAB    &kp SPACE    &kp RET  &lt 1 DELETE  &kp BSPC
             >;
         };
 

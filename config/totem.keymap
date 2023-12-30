@@ -166,10 +166,10 @@
 
         numblock {
             bindings = <
-       &kp COLON        &kp N7  &kp N8  &kp N9      &kp KP_MINUS    &kp ENTER      &none      &none      &none     &none
-       &kp KP_DIVIDE    &kp N4  &kp N5  &kp N6      &kp KP_PLUS     &kp BACKSPACE  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI
-&none  &kp KP_ASTERISK  &kp N1  &kp N2  &kp N3      &none           &kp DELETE     &none      &none      &none     &none     &none
-                                &kp N0  &kp KP_DOT  &lt 5 SPACE     &none          &none      &none
+       &kp COLON  &kp N7  &kp N8  &kp N9      &mt KP_DIVIDE KP_MULTIPLY    &kp ENTER      &none      &none      &none     &none
+       &none      &kp N4  &kp N5  &kp N6      &mt KP_SUBTRACT KP_PLUS      &kp BACKSPACE  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI
+&none  &none      &kp N1  &kp N2  &kp N3      &none                        &kp DELETE     &none      &none      &none     &none     &none
+                          &kp N0  &kp KP_DOT  &lt 5 SPACE                  &none          &none      &none
             >;
 
             label = "numb";
@@ -219,6 +219,17 @@
             >;
 
             label = "idea";
+        };
+
+        i3 {
+            bindings = <
+        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans  &trans
+            >;
+
+            label = "i3";
         };
     };
 };

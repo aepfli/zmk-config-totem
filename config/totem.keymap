@@ -54,6 +54,11 @@
             bindings = <&tog 7>;
             key-positions = <10 11 12 13>;
         };
+
+        i3 {
+            bindings = <&tog 6>;
+            key-positions = <19 10>;
+        };
     };
 
     macros {
@@ -124,10 +129,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-             &kp Q       &kp W       &kp E         &kp R        &kp T          &kp Y                 &kp U            &kp I         &kp O       &kp P
-             &mt LGUI A  &mt LALT S  &mt LCTRL D   &mt LSHFT F  &kp G          &kp H                 &mt RSHFT J      &mt RCTRL K   &mt RALT L  &mt RGUI SEMICOLON
-&mo_tog 0 0  &kp Z       &kp X       &kp C         &kp V        &kp B          &kp N                 &kp M            &kp COMMA     &kp DOT     &kp FSLH            &kp BSLH
-                                     &lt 7 RETURN  &lt 2 TAB    &lt 1 SPACE    &mt LEFT_SHIFT SPACE  &lt 3 BACKSPACE  &lt 4 DELETE
+             &kp Q       &kp W       &kp E         &kp R        &kp T          &kp Y           &kp U            &kp I         &kp O       &kp P
+             &mt LGUI A  &mt LALT S  &mt LCTRL D   &mt LSHFT F  &kp G          &kp H           &mt RSHFT J      &mt RCTRL K   &mt RALT L  &mt RGUI SEMICOLON
+&mo_tog 7 7  &kp Z       &kp X       &kp C         &kp V        &kp B          &kp N           &kp M            &kp COMMA     &kp DOT     &kp FSLH            &kp BSLH
+                                     &lt 7 RETURN  &lt 2 TAB    &lt 1 SPACE    &kp LEFT_SHIFT  &lt 3 BACKSPACE  &lt 4 DELETE
             >;
         };
 
@@ -186,6 +191,28 @@
             label = "numf";
         };
 
+        i3 {
+            bindings = <
+        &kp LG(Q)  &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)    &trans  &trans     &trans     &trans     &trans
+        &trans     &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)    &trans  &kp LG(H)  &kp LG(J)  &kp LG(K)  &kp LG(L)
+&trans  &trans     &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &trans       &trans  &trans     &trans     &trans     &trans     &trans
+                               &kp LALT    &kp LCTRL   &kp LSHFT    &trans  &trans     &trans
+            >;
+
+            label = "i3";
+        };
+
+        idea {
+            bindings = <
+       &kp F6         &trans         &trans         &trans         &trans      &kp LG(LS(Q))  &kp N7      &kp N8  &kp N9  &kp PLUS
+       &kp LS(LSHFT)  &kp LC(N)      &kp LS(LC(N))  &kp LS(LC(A))  &trans      &trans         &kp N4      &kp N5  &kp N6  &kp MINUS
+&to 0  &kp LA(LC(M))  &kp LA(LC(P))  &kp LA(LC(C))  &kp LA(LC(V))  &trans      &trans         &kp N1      &kp N2  &kp N3  &kp ASTERISK  &kp KP_DIVIDE
+                                     &kp LS(LGUI)   &kp LA(LGUI)   &kp LGUI    &kp ENTER      &kp KP_DOT  &kp N0
+            >;
+
+            label = "idea";
+        };
+
         adjust_layer {
             // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 
@@ -208,28 +235,6 @@
 &none  &none        &bt BT_PRV  &none         &none  &none    &none    &kp F1    &kp F2   &kp F3  &kp F10  &none
                                 &none         &none  &none    &kp RET  &kp BSPC  &kp DEL
             >;
-        };
-
-        idea {
-            bindings = <
-       &trans         &trans         &trans         &trans         &trans      &kp LG(LS(Q))  &kp N7      &kp N8  &kp N9  &kp PLUS
-       &kp LS(LSHFT)  &kp LC(N)      &kp LS(LC(N))  &kp LS(LC(A))  &trans      &trans         &kp N4      &kp N5  &kp N6  &kp MINUS
-&to 0  &kp LA(LC(M))  &kp LA(LC(P))  &kp LA(LC(C))  &kp LA(LC(V))  &trans      &trans         &kp N1      &kp N2  &kp N3  &kp ASTERISK  &kp KP_DIVIDE
-                                     &kp LS(LGUI)   &kp LA(LGUI)   &kp LGUI    &kp ENTER      &kp KP_DOT  &kp N0
-            >;
-
-            label = "idea";
-        };
-
-        i3 {
-            bindings = <
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
-            >;
-
-            label = "i3";
         };
     };
 };

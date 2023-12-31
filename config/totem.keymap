@@ -126,7 +126,7 @@
             compatible = "zmk,behavior-hold-tap";
             label = "AUTOSHIFT_HOLD_TAP";
             #binding-cells = <2>;
-            tapping-term-ms = <500>;
+            tapping-term-ms = <800>;
             bindings = <&shifted>, <&kp>;
         };
     };
@@ -214,10 +214,10 @@
 
         idea {
             bindings = <
-       &kp F6         &trans         &trans         &trans         &trans    &kp LG(LS(Q))  &kp N7  &kp N8  &kp N9  &kp PLUS
-       &kp LS(LSHFT)  &kp LC(N)      &kp LS(LC(N))  &kp LS(LC(A))  &trans    &trans         &kp N4  &kp N5  &kp N6  &kp MINUS
-&to 0  &kp LA(LC(M))  &kp LA(LC(P))  &kp LA(LC(C))  &kp LA(LC(V))  &trans    &trans         &kp N1  &kp N2  &kp N3  &kp ASTERISK  &kp KP_DIVIDE
-                                     &none          &none          &none     &none          &none   &none
+       &kp F2         &none          &kp F6         &kp LA(F7)     &none                &none  &none  &none  &none  &none
+       &kp LS(LSHFT)  &kp LC(N)      &kp LS(LC(N))  &kp LS(LC(A))  &kp LS(LC(LA(T)))    &none  &none  &none  &none  &none
+&to 0  &kp LA(LC(M))  &kp LA(LC(P))  &kp LA(LC(C))  &kp LA(LC(V))  &none                &none  &none  &none  &none  &none  &none
+                                     &none          &none          &none                &none  &none  &none
             >;
 
             label = "idea";

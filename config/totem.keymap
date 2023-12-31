@@ -126,10 +126,19 @@
             compatible = "zmk,behavior-hold-tap";
             label = "AUTOSHIFT_HOLD_TAP";
             #binding-cells = <2>;
-            tapping-term-ms = <200>;
+            tapping-term-ms = <150>;
             bindings = <&shifted>, <&kp>;
 
             flavor = "tap-preferred";
+        };
+
+        mod_as: mod_as {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MOD_AS";
+            bindings = <&kp>, <&as>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
         };
     };
 
@@ -141,10 +150,10 @@
         base_layer {
             label = "BASE";
             bindings = <
-             &as Q  &as W  &as E           &as R      &as T          &as Y        &as U            &as I         &as O    &as P
-             &as A  &as S  &as D           &as F      &as G          &as H        &as J            &as K         &as L    &as SEMICOLON
-&mo_tog 7 7  &as Z  &as X  &as C           &as V      &as B          &as N        &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
-                           &kp LEFT_SHIFT  &lt 2 TAB  &lt 1 SPACE    &lt 3 SPACE  &lt 4 BACKSPACE  &lt 6 DELETE
+             &as Q               &as W               &as E                   &as R            &as T          &as Y        &as U            &as I         &as O    &as P
+             &mod_as LEFT_GUI A  &mod_as LEFT_ALT S  &mod_as LEFT_CONTROL D  &mod_as LSHFT F  &as G          &as H        &as J            &as K         &as L    &as SEMICOLON
+&mo_tog 7 7  &as Z               &as X               &as C                   &as V            &as B          &as N        &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
+                                                     &kp LEFT_SHIFT          &lt 2 TAB        &lt 1 SPACE    &lt 3 SPACE  &lt 4 BACKSPACE  &lt 6 DELETE
             >;
         };
 

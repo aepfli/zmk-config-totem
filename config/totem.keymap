@@ -126,8 +126,10 @@
             compatible = "zmk,behavior-hold-tap";
             label = "AUTOSHIFT_HOLD_TAP";
             #binding-cells = <2>;
-            tapping-term-ms = <800>;
+            tapping-term-ms = <500>;
             bindings = <&shifted>, <&kp>;
+
+            flavor = "tap-preferred";
         };
     };
 

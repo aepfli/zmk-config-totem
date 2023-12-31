@@ -51,12 +51,12 @@
         };
 
         shortcuts {
-            bindings = <&tog 8>;
+            bindings = <&tog 7>;
             key-positions = <10 11 12 13>;
         };
 
         i3 {
-            bindings = <&tog 9>;
+            bindings = <&tog 8>;
             key-positions = <19 10>;
         };
     };
@@ -139,10 +139,10 @@
         base_layer {
             label = "BASE";
             bindings = <
-             &as Q  &as W  &as E         &as R      &as T          &as Y        &as U            &as I         &as O    &as P
-             &as A  &as S  &as D         &as F      &as G          &as H        &as J            &as K         &as L    &as SEMICOLON
-&mo_tog 8 8  &as Z  &as X  &as C         &as V      &as B          &as N        &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
-                           &lt 3 RETURN  &lt 2 TAB  &lt 1 SPACE    &lt 4 SPACE  &lt 5 BACKSPACE  &lt 7 DELETE
+             &as Q  &as W  &as E           &as R      &as T          &as Y        &as U            &as I         &as O    &as P
+             &as A  &as S  &as D           &as F      &as G          &as H        &as J            &as K         &as L    &as SEMICOLON
+&mo_tog 7 7  &as Z  &as X  &as C           &as V      &as B          &as N        &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
+                           &kp LEFT_SHIFT  &lt 2 TAB  &lt 1 SPACE    &lt 3 SPACE  &lt 4 BACKSPACE  &lt 6 DELETE
             >;
         };
 
@@ -168,16 +168,6 @@
             label = "nav";
         };
 
-        adjust_layer {
-            label = "ADJ";
-            bindings = <
-       &sys_reset   &bt BT_CLR  &out OUT_TOG  &none  &none    &none    &kp F7    &kp F8   &kp F9  &kp F12
-       &bootloader  &bt BT_NXT  &none         &none  &none    &none    &kp F4    &kp F5   &kp F6  &kp F11
-&none  &none        &bt BT_PRV  &none         &none  &none    &none    &kp F1    &kp F2   &kp F3  &kp F10  &none
-                                &none         &none  &none    &kp RET  &kp BSPC  &kp DEL
-            >;
-        };
-
         sym_code {
             bindings = <
        &mt CARET ASTERISK  &kp LEFT_BRACE              &kp COLON             &kp RIGHT_BRACE                 &kp AMPERSAND    &kp ENTER      &none      &none      &none     &none
@@ -194,7 +184,7 @@
        &kp COLON  &kp N7  &kp N8  &kp N9      &mt KP_DIVIDE KP_MULTIPLY    &kp ENTER      &none      &none      &none     &none
        &none      &kp N4  &kp N5  &kp N6      &mt KP_SUBTRACT KP_PLUS      &kp BACKSPACE  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
 &none  &none      &kp N1  &kp N2  &kp N3      &none                        &kp DELETE     &none      &none      &none     &none     &none
-                          &kp N0  &kp KP_DOT  &lt 6 SPACE                  &none          &none      &none
+                          &kp N0  &kp KP_DOT  &lt 5 SPACE                  &none          &none      &none
             >;
 
             label = "numb";
@@ -202,10 +192,10 @@
 
         numfunctions {
             bindings = <
-       &none  &kp F7  &kp F8  &kp F9  &kp F10    &none  &none      &none      &none     &none
-       &none  &kp F4  &kp F5  &kp F6  &kp F11    &none  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
-&none  &none  &kp F1  &kp F2  &kp F3  &kp F12    &none  &none      &none      &none     &none     &none
-                      &none   &none   &none      &none  &none      &none
+       &none  &kp F7  &kp F8  &kp F9  &kp F10    &bt BT_CLR  &bt BT_PRV  &bt BT_PRV  &none        &out OUT_TOG
+       &none  &kp F4  &kp F5  &kp F6  &kp F11    &none       &sk RSHFT   &sk RCTRL   &sk RALT     &sk RGUI
+&none  &none  &kp F1  &kp F2  &kp F3  &kp F12    &none       &none       &none       &bootloader  &sys_reset    &none
+                      &none   &none   &none      &none       &none       &none
             >;
 
             label = "numf";
@@ -216,7 +206,7 @@
         &trans      &trans     &trans      &trans       &trans        &trans  &trans     &trans     &trans    &trans
         &trans      &trans     &trans      &trans       &trans        &trans  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
 &trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_REDO    &trans  &trans     &trans     &trans    &trans    &trans
-                               &trans      &trans       &mo 8         &trans  &trans     &trans
+                               &trans      &trans       &mo 7         &trans  &trans     &trans
             >;
 
             label = "shortcuts";

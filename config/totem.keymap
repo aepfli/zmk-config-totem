@@ -217,7 +217,7 @@
         shortcuts {
             bindings = <
         &trans      &trans     &trans      &trans       &trans        &trans  &trans     &trans     &trans    &trans
-        &trans      &trans     &trans      &trans       &trans        &trans  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
+        &trans      &trans     &trans      &kp LC(F)    &kp LC(K)     &trans  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
 &trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_REDO    &trans  &trans     &trans     &trans    &trans    &trans
                                &trans      &trans       &mo 7         &trans  &trans     &trans
             >;

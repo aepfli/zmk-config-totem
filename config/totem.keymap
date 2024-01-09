@@ -238,10 +238,10 @@
 
         i3 {
             bindings = <
-        &kp LG(Q)  &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)    &trans  &trans     &trans     &trans     &trans
-        &trans     &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)    &trans  &kp LG(H)  &kp LG(J)  &kp LG(K)  &kp LG(L)
-&trans  &trans     &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &trans       &trans  &trans     &trans     &trans     &trans     &trans
-                               &kp LALT    &kp LCTRL   &kp LSHFT    &trans  &trans     &trans
+        &kp LG(Q)  &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)    &trans         &trans         &trans     &trans     &trans
+        &trans     &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)    &trans         &kp LG(H)      &kp LG(J)  &kp LG(K)  &kp LG(L)
+&trans  &trans     &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &trans       &trans         &trans         &trans     &trans     &trans     &trans
+                               &kp LALT    &kp LCTRL   &kp LSHFT    &kp LA(SPACE)  &kp LA(ENTER)  &trans
             >;
 
             label = "i3";

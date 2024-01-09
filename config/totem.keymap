@@ -56,7 +56,7 @@
         };
 
         i3 {
-            bindings = <&tog 8>;
+            bindings = <&mo_tog 8 8>;
             key-positions = <19 10>;
         };
     };

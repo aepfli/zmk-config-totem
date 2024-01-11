@@ -216,10 +216,10 @@
 
         shortcuts {
             bindings = <
-        &trans      &trans     &trans      &kp LC(R)    &trans        &trans  &trans     &trans     &trans    &trans
-        &kp LC(A)   &kp LC(S)  &kp LC(D)   &kp LC(F)    &kp LC(K)     &trans  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
-&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_REDO    &trans  &trans     &trans     &trans    &trans    &trans
-                               &trans      &trans       &mo 7         &trans  &trans     &trans
+       &none      &none      &none      &kp LC(R)  &none        &none  &none      &none      &none     &none
+       &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(K)    &none  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
+&none  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(V)  &kp LC(Y)    &none  &none      &none      &none     &none     &none
+                             &none      &none      &sl 7        &none  &none      &none
             >;
 
             label = "shortcuts";
@@ -238,10 +238,10 @@
 
         i3 {
             bindings = <
-        &kp LG(Q)  &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)    &trans         &trans         &trans     &trans     &trans
-        &trans     &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)    &trans         &kp LG(H)      &kp LG(J)  &kp LG(K)  &kp LG(L)
-&trans  &trans     &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &trans       &trans         &trans         &trans     &trans     &trans     &trans
-                               &kp LALT    &kp LCTRL   &kp LSHFT    &kp LA(SPACE)  &kp LA(ENTER)  &trans
+       &kp LG(Q)  &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)    &none          &none          &none      &none      &none
+       &none      &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)    &none          &kp LG(H)      &kp LG(J)  &kp LG(K)  &kp LG(L)
+&none  &none      &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &none        &none          &none          &none      &none      &none      &none
+                              &kp LALT    &kp LCTRL   &kp LSHFT    &kp LA(SPACE)  &kp LA(ENTER)  &none
             >;
 
             label = "i3";

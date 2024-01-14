@@ -155,10 +155,10 @@
         base_layer {
             label = "BASE";
             bindings = <
-             &as Q  &as W  &as E           &as R      &as T          &as Y        &as U            &as I         &as O    &as SEMICOLON
-             &as A  &as S  &as D           &as F      &as G          &as H        &as J            &as K         &as L    &as P
-&mo_tog 7 7  &as Z  &as X  &as C           &as V      &as B          &as N        &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
-                           &kp LEFT_SHIFT  &lt 2 TAB  &lt 1 SPACE    &lt 3 SPACE  &lt 4 BACKSPACE  &lt 6 DELETE
+             &as Q  &as W  &as E               &as R      &as T          &as Y        &as U            &as I         &as O    &as SEMICOLON
+             &as A  &as S  &as D               &as F      &as G          &as H        &as J            &as K         &as L    &as P
+&mo_tog 7 7  &as Z  &as X  &as C               &as V      &as B          &as N        &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
+                           &caps_hold LSHFT 0  &lt 2 TAB  &lt 1 SPACE    &lt 3 SPACE  &lt 4 BACKSPACE  &lt 6 DELETE
             >;
         };
 

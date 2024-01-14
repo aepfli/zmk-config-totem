@@ -55,7 +55,7 @@
 
         i3 {
             bindings = <&mo_tog 8 8>;
-            key-positions = <19 10>;
+            key-positions = <19 18>;
         };
 
         lctrl_del {

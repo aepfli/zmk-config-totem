@@ -31,9 +31,7 @@
     tapping-term-ms = <200>;
 };
 
-&lt {
-    quick-tap-ms = <180>;
-};
+&lt { quick-tap-ms = <180>; };
 
 / {
     combos {
@@ -58,6 +56,11 @@
         i3 {
             bindings = <&mo_tog 8 8>;
             key-positions = <19 10>;
+        };
+
+        lctrl_del {
+            bindings = <&kp LC(BACKSPACE)>;
+            key-positions = <35 36>;
         };
     };
 

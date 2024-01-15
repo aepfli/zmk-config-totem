@@ -129,7 +129,7 @@
             compatible = "zmk,behavior-hold-tap";
             label = "AUTOSHIFT_HOLD_TAP";
             #binding-cells = <2>;
-            tapping-term-ms = <200>;
+            tapping-term-ms = <150>;
             bindings = <&shifted>, <&kp>;
 
             flavor = "tap-preferred";
@@ -186,7 +186,7 @@
 
         sym_code {
             bindings = <
-       &mt CARET ASTERISK  &kp LEFT_BRACE              &kp COLON             &kp RIGHT_BRACE                 &kp AMPERSAND    &none          &none      &none      &none     &none
+       &mt CARET ASTERISK  &kp LEFT_BRACE              &as COLON             &kp RIGHT_BRACE                 &kp AMPERSAND    &none          &none      &none      &none     &none
        &kp EXCLAMATION     &kp LEFT_PARENTHESIS        &mt PLUS EQUAL        &kp RIGHT_PARENTHESIS           &kp QUESTION     &kp BACKSPACE  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
 &none  &kp DOLLAR          &mt LESS_THAN LEFT_BRACKET  &mt UNDERSCORE MINUS  &mt GREATER_THAN RIGHT_BRACKET  &kp PIPE         &kp DELETE     &none      &none      &none     &none     &none
                                                        &mt HASH BACKSLASH    &kp TAB                         &kp SPACE        &none          &none      &none

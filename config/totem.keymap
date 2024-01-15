@@ -132,7 +132,7 @@
             tapping-term-ms = <170>;
             bindings = <&shifted>, <&kp>;
 
-            flavor = "tap-unless-interrupted";
+            flavor = "tap-preferred";
         };
 
         mod_as: mod_as {

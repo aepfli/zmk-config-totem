@@ -241,10 +241,10 @@
 
         i3 {
             bindings = <
-       &kp LG(Q)        &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)      &none          &none          &none              &none      &none
-       &kp LG(LC(A))    &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)      &none          &kp LG(H)      &kp LG(J)          &kp LG(K)  &kp LG(L)
-&none  &kp LG(LS(TAB))  &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &kp LG(TAB)    &none          &none          &none              &none      &none      &none
-                                    &kp LALT    &kp LCTRL   &kp LSHFT      &kp LG(SPACE)  &kp LG(ENTER)  &kp LG(BACKSPACE)
+       &kp LG(Q)        &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)      &kp LG(ESCAPE)  &none          &none              &none      &none
+       &kp LG(LC(A))    &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)      &none           &kp LG(H)      &kp LG(J)          &kp LG(K)  &kp LG(L)
+&none  &kp LG(LS(TAB))  &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &kp LG(TAB)    &none           &none          &none              &none      &none      &none
+                                    &kp LALT    &kp LCTRL   &kp LSHFT      &kp LG(SPACE)   &kp LG(ENTER)  &kp LG(BACKSPACE)
             >;
 
             label = "i3";

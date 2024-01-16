@@ -113,7 +113,8 @@
             bindings = <&mo>, <&tog>;
 
             #binding-cells = <2>;
-            tapping-term-ms = <500>;
+            tapping-term-ms = <200>;
+            require-prior-idle-ms = <100>;
         };
 
         caps_hold: caps_hold {

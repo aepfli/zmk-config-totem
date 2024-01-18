@@ -110,6 +110,20 @@
                 <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
                 <&macro_press>;
         };
+
+        as_hrm: as_hrm {
+            compatible = "zmk,behavior-macro-two-param";
+            #binding-cells = <2>;
+            label = "AS_HRM";
+            bindings =
+                <&macro_tap_time 500>,
+                <&macro_press>,
+                <&macro_param_1to1 &as MACRO_PLACEHOLDER>,
+                <&macro_pause_for_release>,
+                <&macro_release>,
+                <&macro_param_1to1 &macro_param_2to2 &as_ht_hmr MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
+                <&macro_press>;
+        };
     };
 
     behaviors {
@@ -162,6 +176,16 @@
             tapping-term-ms = <200>;
             flavor = "tap-preferred";
         };
+
+        as_ht_hmr: autoshift_homerow_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "autoshift_homerow_hold_tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <170>;
+            bindings = <&sk>, <&shifted>;
+
+            flavor = "tap-preferred";
+        };
     };
 
     keymap {
@@ -172,10 +196,10 @@
         base_layer {
             label = "BASE";
             bindings = <
-             &as Q  &as W  &as E               &as R      &as T          &as Y           &as U            &as I         &as O    &as SEMICOLON
-             &as A  &as S  &as D               &as F      &as G          &as H           &as J            &as K         &as L    &as P
-&mo_tog 7 7  &as Z  &as X  &as C               &as V      &as B          &as N           &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
-                           &caps_hold LSHFT 0  &lt 2 TAB  &lt 1 SPACE    &repeat_mo 3 0  &lt 4 BACKSPACE  &lt 6 DELETE
+             &as Q  &as W               &as E               &as R             &as T          &as Y           &as U            &as I         &as O    &as SEMICOLON
+             &as A  &as_hrm S LEFT_ALT  &as_hrm D LCTRL     &as_hrm F LSHIFT  &as G          &as H           &as J            &as K         &as L    &as P
+&mo_tog 7 7  &as Z  &as X               &as C               &as V             &as B          &as N           &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
+                                        &caps_hold LSHFT 0  &lt 2 TAB         &lt 1 SPACE    &repeat_mo 3 0  &lt 4 BACKSPACE  &lt 6 DELETE
             >;
         };
 

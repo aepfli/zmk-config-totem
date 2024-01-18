@@ -50,7 +50,7 @@
 
         shortcuts {
             bindings = <&sl 6>;
-            key-positions = <10 11 12 13>;
+            key-positions = <12 13>;
         };
 
         i3 {
@@ -63,25 +63,9 @@
             key-positions = <35 36>;
         };
 
-        combo_hmr_l_ctrl {
-            bindings = <&sk LCTRL>;
-            key-positions = <12>;
-            timeout-ms = <1000>;
-            require-prior-idle-ms = <300>;
-        };
-
-        combo_hmr_l_alt {
-            bindings = <&sk LEFT_ALT>;
-            key-positions = <11>;
-            timeout-ms = <1000>;
-            require-prior-idle-ms = <300>;
-        };
-
-        combo_hmr_l_gui {
-            bindings = <&sk LGUI>;
-            key-positions = <10>;
-            timeout-ms = <1000>;
-            require-prior-idle-ms = <300>;
+        idea {
+            bindings = <&sl 7>;
+            key-positions = <12 11>;
         };
     };
 

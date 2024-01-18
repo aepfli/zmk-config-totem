@@ -107,8 +107,7 @@
                 <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
                 <&macro_pause_for_release>,
                 <&macro_release>,
-                <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
-                <&macro_press>;
+                <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
         };
 
         as_hrm: as_hrm {
@@ -116,13 +115,11 @@
             #binding-cells = <2>;
             label = "AS_HRM";
             bindings =
-                <&macro_tap_time 500>,
                 <&macro_press>,
-                <&macro_param_1to1 &as MACRO_PLACEHOLDER>,
+                <&macro_param_2to1 &macro_param_1to2 &as_ht_hmr MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
                 <&macro_pause_for_release>,
                 <&macro_release>,
-                <&macro_param_1to1 &macro_param_2to2 &as_ht_hmr MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
-                <&macro_press>;
+                <&macro_param_1to2 &macro_param_2to1 &as_ht_hmr MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
         };
     };
 
@@ -181,8 +178,8 @@
             compatible = "zmk,behavior-hold-tap";
             label = "autoshift_homerow_hold_tap";
             #binding-cells = <2>;
-            tapping-term-ms = <170>;
-            bindings = <&sk>, <&shifted>;
+            tapping-term-ms = <500>;
+            bindings = <&sk>, <&as>;
 
             flavor = "tap-preferred";
         };

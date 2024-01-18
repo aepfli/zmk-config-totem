@@ -17,7 +17,7 @@ I took a lot of inspiration from existing configurations like [Miryoku](https://
 
 I tried to stick to Miryoku's opposite site layer feature to reduce complications.
 
-But I was intrigued by auto-shift, rather than pressing shift for caps.
+But I was intrigued by auto-shift, rather than pressing shift for caps, therefor i do have an auto-shifted layer, which can be toggled.
 Generally, this might lead to a lower type speed, but I think it adds a little bit more comfort.
 
 So far, I have not found a nice configuration to use auto-shift in a nice way with home row mods, which is still on my to-do list.
@@ -36,5 +36,17 @@ I wanted to create a more rolling motion from outward to inward, also like sunak
 
 ## To-do's
 
-- home row mods, or at least easier accessible modifiers, maybe combos
 - improvement to shortcut layer, and rethinking how to access it
+
+## Changelog
+
+### 2024-01-18
+
+- home row mods instead of auto-shift
+- simpler combos for shortcuts, and one for idea shortcuts directly
+
+#### home row mods
+
+As it turns out HRMs with auto-shift are a little bit complicated. 
+I opted into two layers, one with auto-shift, and one with HMRs.
+Let's see which one I prefer.

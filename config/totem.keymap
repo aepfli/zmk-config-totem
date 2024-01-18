@@ -107,11 +107,11 @@
             #binding-cells = <0>;
             bindings =
                 <&macro_press>,
-                <&kp RIGHT_ALT>,
+                <&kp LALT>,
                 <&macro_tap>,
                 <&kp KP_NUMBER_0 &kp KP_NUMBER_1 &kp KP_NUMBER_2 &kp KP_NUMBER_8>,
                 <&macro_release>,
-                <&kp RIGHT_ALT>;
+                <&kp LALT>;
         };
     };
 

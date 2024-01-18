@@ -62,6 +62,27 @@
             bindings = <&kp LC(BACKSPACE)>;
             key-positions = <35 36>;
         };
+
+        combo_hmr_l_ctrl {
+            bindings = <&sk LCTRL>;
+            key-positions = <12>;
+            timeout-ms = <1000>;
+            require-prior-idle-ms = <300>;
+        };
+
+        combo_hmr_l_alt {
+            bindings = <&sk LEFT_ALT>;
+            key-positions = <11>;
+            timeout-ms = <1000>;
+            require-prior-idle-ms = <300>;
+        };
+
+        combo_hmr_l_gui {
+            bindings = <&sk LGUI>;
+            key-positions = <10>;
+            timeout-ms = <1000>;
+            require-prior-idle-ms = <300>;
+        };
     };
 
     macros {
@@ -102,7 +123,8 @@
                 <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
                 <&macro_pause_for_release>,
                 <&macro_release>,
-                <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
+                <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
+                <&macro_press>;
         };
     };
 

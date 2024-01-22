@@ -277,10 +277,10 @@
 
         shortcuts {
             bindings = <
-       &none      &kp LC(W)  &none      &kp LC(R)  &kp LC(T)    &none  &none      &none      &none     &none
-       &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(K)    &none  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
-&none  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(V)  &kp LC(Y)    &none  &none      &none      &none     &none     &none
-                             &none      &none      &sl 8        &none  &none      &none
+       &none      &kp LC(W)  &none      &kp LC(R)  &kp LC(T)        &none  &none      &none      &none     &none
+       &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(K)        &none  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
+&none  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(V)  &kp LC(Y)        &none  &none      &none      &none     &none     &none
+                             &none      &none      &kp LA(LS(V))    &none  &none      &none
             >;
 
             label = "shortcuts";

@@ -58,6 +58,21 @@
             bindings = <&sl 8>;
             key-positions = <12 11>;
         };
+
+        cmb_quote {
+            bindings = <&kp SQT>;
+            key-positions = <16 6>;
+        };
+
+        cmb_excl {
+            bindings = <&kp EXCLAMATION>;
+            key-positions = <7 17>;
+        };
+
+        cmb_quest {
+            bindings = <&kp QUESTION>;
+            key-positions = <8 18>;
+        };
     };
 
     macros {

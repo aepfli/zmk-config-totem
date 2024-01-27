@@ -61,7 +61,7 @@
 
         cmb_quote {
             bindings = <&kp SQT>;
-            key-positions = <16 6>;
+            key-positions = <6 16>;
         };
 
         cmb_excl {
@@ -72,6 +72,11 @@
         cmb_quest {
             bindings = <&kp QUESTION>;
             key-positions = <8 18>;
+        };
+
+        cmb_dash {
+            bindings = <&kp MINUS>;
+            key-positions = <5 15>;
         };
     };
 

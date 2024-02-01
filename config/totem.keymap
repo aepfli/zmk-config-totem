@@ -15,284 +15,324 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 
-&mt {
-    quick-tap-ms = <100>;
-    global-quick-tap;
-    flavor = "tap-preferred";
-    tapping-term-ms = <200>;
+#include "../zmk-nodefree-config/keypos_def/keypos_38keys.h"
+
+#include "../zmk-nodefree-config/helper.h"
+#include "../zmk-nodefree-config/international_chars/german.dtsi"
+#include "../zmk-nodefree-config/international_chars/greek.dtsi"
+
+#include "mouse.dtsi"
+
+#define DEF 0
+#define SYMT 1
+#define NAV 2
+#define SYMC 3
+#define NUM 4
+#define FN 5
+#define SC 6
+#define IDEA 7
+#define WM 8
+#define MOUSE 9
+#define UC 10
+
+#include "combos.dtsi"  // requires layer aliases
+
+#define XXXX &none
+#define ____ &trans
+
+#define QUICK_TAP_MS 175
+
+&sk {  // sticky-key config
+    release-after-ms = <900>;  // release after 0.6s
+    quick-release;             // no double capitalization when rolling keys
 };
 
-&lt { quick-tap-ms = <180>; };
+&sl {  // sticky-layer config
+    ignore-modifiers;          // allow chording sticky mods & layers
+};
 
-/ {
-    combos {
-        compatible = "zmk,combos";
+&lt {  // layer-tap config
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+};
 
-        combo_esc {
-            timeout-ms = <50>;
-            key-positions = <0 1>;
-            bindings = <&kp ESC>;
-        };
 
-        enter {
-            bindings = <&kp ENTER>;
-            key-positions = <8 9>;
-        };
+/* Homerow mods */
 
-        shortcuts {
-            bindings = <&sl 7>;
-            key-positions = <12 13>;
-        };
+#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // left hand
+#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4 // right hand
+#define THUMBS LH2 LH1 LH0 RH0 RH1 RH2                                      // thumbs
 
-        i3 {
-            bindings = <&mo_tog 9 9>;
-            key-positions = <19 18>;
-        };
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS) \
+    ZMK_BEHAVIOR(NAME, hold_tap, \
+        flavor = "balanced"; \
+        tapping-term-ms = <280>; \
+        quick-tap-ms = <QUICK_TAP_MS>; \
+        require-prior-idle-ms = <150>; \
+        bindings = <HOLD>, <TAP>; \
+        hold-trigger-key-positions = <TRIGGER_POS>; \
+        hold-trigger-on-release; \
+    )
 
-        lctrl_del {
-            bindings = <&kp LC(BACKSPACE)>;
-            key-positions = <35 36>;
-        };
+MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS)  // left-hand HRMs
+MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
 
-        idea {
-            bindings = <&sl 8>;
-            key-positions = <12 11>;
-        };
-    };
+MAKE_HRM(hml_repeat, &kp, &key_repeat, KEYS_R THUMBS)  // used for HRM-combo
+MAKE_HRM(hmr_lpar_lt, &kp, &lpar_lt, KEYS_L THUMBS)    // "    "   "   "
+MAKE_HRM(hmr_rpar_gt, &kp, &rpar_gt, KEYS_L THUMBS)    // "    "   "   "
 
-    macros {
-        gif: gif {
-            label = "giphy";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&macro_press>,
-                <&kp LSHFT>,
-                <&macro_tap>,
-                <&kp N2>,
-                <&macro_release>,
-                <&kp LSHFT>,
-                <&macro_tap>,
-                <&kp G &kp I &kp F>;
-        };
 
-        shifted: macro_shifted_kp {
-            #binding-cells = <1>;
-            label = "MACRO_SHIFTED_KP";
-            compatible = "zmk,behavior-macro-one-param";
-            bindings =
-                <&macro_press>,
-                <&kp LSHFT &macro_param_1to1>,
-                <&macro_tap>,
-                <&kp MACRO_PLACEHOLDER>,
-                <&macro_release>,
-                <&kp LSHFT>;
-        };
+/* Nav cluster */
 
-        as: autoshift {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            label = "AUTOSHIFT_KP";
-            bindings =
-                <&macro_press>,
-                <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>,
-                <&macro_pause_for_release>,
-                <&macro_release>,
-                <&macro_param_1to1 &macro_param_1to2 &as_ht MACRO_PLACEHOLDER MACRO_PLACEHOLDER>;
-        };
-    };
+// long-tap action on hold, short-tap action on all interrupts
+#define MT_CORE \
+    flavor = "tap-preferred"; \
+    tapping-term-ms = <220>; \
+    quick-tap-ms = <220>; \
+    hold-trigger-key-positions = <0>;\
+    
+&mt { MT_CORE };
+ZMK_BEHAVIOR(mt_home, hold_tap, bindings = <&masked_home>, <&kp>; MT_CORE)
+ZMK_BEHAVIOR(mt_end,  hold_tap,  bindings = <&masked_end>, <&kp>; MT_CORE)
 
-    behaviors {
-        mo_tog: behavior_mo_tog {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MO_TOG";
-            bindings = <&mo>, <&tog>;
+#define NAV_LEFT  &mt_home 0   LEFT    // tap: left  | long-tap: beginning of line
+#define NAV_RIGHT &mt_end 0    RIGHT   // tap: right | long-tap: end       of line
+#define NAV_UP    &mt LC(HOME) UP      // tap: up    | long-tap: beginning of document
+#define NAV_DOWN  &mt LC(END)  DOWN    // tap: down  | long-tap: end       of document
+#define NAV_BSPC  &mt LC(BSPC) BSPC    // tap: bspc  | long-tap: delete word backward
+#define NAV_DEL   &mt LC(DEL)  DEL     // tap: del   | long-tap: delete word forward
 
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            require-prior-idle-ms = <100>;
-        };
+// mask CTRL when holding left/right to avoid accidental jumps to beginning/end of document
+#define MASK_MODS(NAME, MODS, BINDING) \
+    ZMK_BEHAVIOR(NAME, mod_morph, \
+        bindings = <BINDING>, <BINDING>; \
+        mods = <MODS>; \
+    )
 
-        caps_hold: caps_hold {
-            compatible = "zmk,behavior-hold-tap";
-            label = "CAPS_HOLD";
-            bindings = <&kp>, <&caps_word>;
+MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
+MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
 
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-        };
+/* Caps-word, num-word and smart-mouse */
 
-        as_ht: autoshift_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            label = "AUTOSHIFT_HOLD_TAP";
-            #binding-cells = <2>;
-            tapping-term-ms = <170>;
-            bindings = <&shifted>, <&kp>;
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
+ZMK_BEHAVIOR(smart_shft, mod_morph,
+    bindings = <&sk LSHFT>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
+)
+&caps_word {  // mods deactivate caps-word, requires PR #1451
+    /delete-property/ ignore-modifiers;
+};
 
-            flavor = "tap-preferred";
-        };
+// tap: num-word | double-tap: sticky num-layer | hold: num-layer
+#define SMART_NUM &smart_num NUM 0
+ZMK_BEHAVIOR(smart_num, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&num_dance>;
+)
+ZMK_BEHAVIOR(num_dance, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&num_word>, <&sl NUM>;  // reverse this for sticky-num on single tap
+)
+&num_word {  // num-word, requires PR #1451
+    layers = <NUM>;
+    continue-list = <BSPC DEL DOT COMMA PLUS MINUS STAR FSLH EQUAL>;
+};
 
-        mod_as: mod_as {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MOD_AS";
-            bindings = <&kp>, <&as>;
+// smart-mouse, requires PR #1366
+ZMK_BEHAVIOR(smart_mouse, tri_state,
+    bindings = <&tog MOUSE>, <____ >, <&tog MOUSE>;
+    ignored-key-positions = <LT1 LT3 RT1 RT2 RT3 RM1 RM2 RM3 RH0 RH1 RH2>;
+    ignored-layers = <MOUSE>;
+)
 
-            #binding-cells = <2>;
-            tapping-term-ms = <500>;
-            flavor = "tap-preferred";
-            retro-tap;
-        };
+/* Custom behaviors */
 
-        repeat_mo: repeat_mo {
-            compatible = "zmk,behavior-hold-tap";
-            label = "REPEAT_MO";
-            bindings = <&mo>, <&key_repeat>;
+// Alt+Tab swapper, requires PR #1366
+ZMK_BEHAVIOR(swapper, tri_state,
+    bindings = <&kt LGUI>, <&kp TAB>, <&kt LGUI>;
+    ignored-key-positions = <LT2>;
+)
 
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            flavor = "tap-preferred";
-        };
+// Sticky layer + sticky shift (workaround for issue #1421)
+ZMK_BEHAVIOR(sls, sticky_key,
+    release-after-ms = <1000>;
+    bindings = <&uc_shift>;
+    ignore-modifiers;
+)
+ZMK_BEHAVIOR(uc_shift, macro,
+    wait-ms = <0>;
+    tap-ms = <1>;
+    bindings = <&macro_press &mo UC &kp LSHFT>
+             , <&macro_pause_for_release>
+             , <&macro_release &mo UC &kp LSHFT>;
+)
 
-        hmr_l: hmr_l {
-            compatible = "zmk,behavior-hold-tap";
-            label = "homerowmod left";
-            bindings = <&kp>, <&kp>;
+// reuse basic mod-morph scheme
+#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2) \
+    ZMK_BEHAVIOR(NAME, mod_morph, \
+        mods = <(MOD_L ## MOD|MOD_R ## MOD)>; \
+        bindings = <BINDING1>, <BINDING2>; \
+    )
 
-            #binding-cells = <2>;
-            hold-trigger-on-release;
-            hold-trigger-key-positions = <5 6 7 8 30 19 9 31 18 29 17 28 16 27 15 26 35 36 37>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
-        };
+// tap: comma | shift + tap: semicolon | ctrl + shift + tap: <
+SIMPLE_MORPH(comma_morph, SFT, &kp COMMA, &comma_inner_morph)
+SIMPLE_MORPH(comma_inner_morph, CTL, &kp SEMICOLON, &kp LESS_THAN)
 
-        hmr_r: hmr_r {
-            compatible = "zmk,behavior-hold-tap";
-            label = "homerowmod r";
-            bindings = <&kp>, <&kp>;
+// tap: dot | shift + tap: colon | ctrl + shift + tap: >
+SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &dot_inner_morph)
+SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
 
-            #binding-cells = <2>;
-            hold-trigger-on-release;
-            hold-trigger-key-positions = <25 33 12 23 0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 25 32 33 34>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
-        };
-    };
+// tap: qmark | shift + tap: excl
+SIMPLE_MORPH(qexcl, SFT, &kp QMARK, &kp EXCL)
 
-    keymap {
-        compatible = "zmk,keymap";
+// tap: left/right parenthesis | shft + tap: less-than/greater-than
+SIMPLE_MORPH(lpar_lt, SFT, &kp LPAR, &kp LT)
+SIMPLE_MORPH(rpar_gt, SFT, &kp RPAR, &kp GT)
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+// tap: space | shift + tap: dot -> space -> sticky shift | hold: activate layer
+ZMK_BEHAVIOR(lt_spc, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&spc_morph>;
+)
+SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &dot_spc)
+ZMK_BEHAVIOR(dot_spc, macro,
+    wait-ms = <0>;
+    tap-ms = <5>;
+    bindings = <&kp DOT &kp SPACE &sk LSHFT>;
+)
 
-        base_layer {
-            label = "BASE";
-            bindings = <
-       &kp Q          &kp W              &kp E               &kp R           &kp T          &kp Y           &kp U            &kp I           &kp O               &kp SEMICOLON
-       &hmr_l LGUI A  &hmr_l LEFT_ALT S  &hmr_l LCTRL D      &hmr_l LSHFT F  &kp G          &kp H           &hmr_r RSHFT J   &hmr_r RCTRL K  &hmr_r RIGHT_ALT L  &hmr_r RGUI P
-&to 1  &kp Z          &kp X              &kp C               &kp V           &kp B          &kp N           &kp M            &kp COMMA       &kp DOT             &kp FSLH       &kp BSLH
-                                         &caps_hold LSHFT 0  &lt 3 TAB       &lt 2 SPACE    &repeat_mo 4 0  &lt 5 BACKSPACE  &lt 7 DELETE
-            >;
-        };
+// tap: backspace | lshft + tap: delete | rshft + tap: shift-delete
+ZMK_BEHAVIOR(bs_del, mod_morph,
+    bindings = <&kp BSPC>, <&kp DEL>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+    keep-mods = <MOD_RSFT>;
+)
 
-        as_layer {
-            label = "AUTO-SHIFT";
-            bindings = <
-       &as Q  &as W  &as E               &as R      &as T          &as Y           &as U            &as I         &as O    &as SEMICOLON
-       &as A  &as S  &as D               &as F      &as G          &as H           &as J            &as K         &as L    &as P
-&to 0  &as Z  &as X  &as C               &as V      &as B          &as N           &as M            &as COMMA     &as DOT  &as FSLH       &as BSLH
-                     &caps_hold LSHFT 0  &lt 3 TAB  &lt 2 SPACE    &repeat_mo 4 0  &lt 5 BACKSPACE  &lt 7 DELETE
-            >;
-        };
+// tap: copy | double-tap: cut
+ZMK_BEHAVIOR(copy_cut, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&kp LC(INS)>, <&kp LC(X)>;
+)
 
-        sym_type {
-            bindings = <
-       &none     &none     &none      &none      &kp TAB      &kp UNDERSCORE  &kp DOUBLE_QUOTES  &kp AT_SIGN      &mt DOLLAR RA(N5)  &kp PERCENT
-       &sk LGUI  &sk LALT  &sk LCTRL  &sk LSHFT  &kp SPACE    &kp MINUS       &kp SQT            &kp EXCLAMATION  &kp QUESTION       &kp COLON
-&none  &none     &none     &none      &none      &kp ENTER    &kp TILDE       &kp GRAVE          &kp HASH         &kp AMPERSAND      &kp ASTERISK  &none
-                           &none      &none      &none        &kp SPACE       &kp BACKSPACE      &kp DELETE
-            >;
+ZMK_BEHAVIOR(mo_tog, hold_tap,
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&tog>;
+    require-prior-idle-ms = <100>;
+)
 
-            label = "SYMT";
-        };
+ZMK_BEHAVIOR(repmo, hold_tap,
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&key_repeat>;
+    require-prior-idle-ms = <100>;
+)
 
-        navigation {
-            bindings = <
-       &none     &none     &none      &none      &none    &kp PG_UP  &kp HOME  &kp UP      &kp END    &kp PRINTSCREEN
-       &sk LGUI  &sk LALT  &sk LCTRL  &sk LSHFT  &none    &kp PG_DN  &kp LEFT  &kp DOWN    &kp RIGHT  &kp INS
-&none  &none     &none     &none      &none      &none    &kp INS    &none     &none       &none      &none            &none
-                           &none      &none      &none    &kp RET    &kp BSPC  &kp DELETE
-            >;
+ZMK_UNICODE_SINGLE(eur, N2, N0, A, C)
 
-            label = "nav";
-        };
+ZMK_LAYER(base,
+//         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             &kp Q         &kp W         &kp E         &kp R         &kp T                    &kp Y         &kp U         &kp I         &kp O         &kp SQT
+//         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+             &hml LGUI A   &hml LALT S   &hml LCTRL D  &hml LSHFT F  &kp G                    &kp H         &hmr RSHFT J  &hmr LCTRL K  &hmr LALT L   &hmr LGUI P
+//╭──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────╮
+    &mo UC   &kp Z         &kp X         &kp C         &kp V         &kp B                    &kp N         &kp M         &comma_morph  &dot_morph    &qexcl          &smart_mouse
+//╰──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────╯
+                                         &smart_shft   &lt NAV TAB   &lt_spc SYMT 0           &repmo SYMC 0 &bs_del       SMART_NUM   
+//                                     ╰─────────────┴─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────┴─────────────╯ 
+)
 
-        sym_code {
-            bindings = <
-       &mt CARET ASTERISK  &kp LEFT_BRACE              &as COLON           &kp RIGHT_BRACE                 &kp AMPERSAND    &none          &none      &none      &none     &none
-       &kp EXCLAMATION     &kp LEFT_PARENTHESIS        &as EQUAL           &kp RIGHT_PARENTHESIS           &kp QUESTION     &kp BACKSPACE  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
-&none  &kp DOLLAR          &mt LESS_THAN LEFT_BRACKET  &as MINUS           &mt GREATER_THAN RIGHT_BRACKET  &kp PIPE         &kp DELETE     &none      &none      &none     &none     &none
-                                                       &mt HASH BACKSLASH  &kp TAB                         &kp SPACE        &none          &none      &none
-            >;
+ZMK_LAYER(sym_type,
+//         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             ____          ____          ____          ____          ____                     &kp UNDER     &kp EQUAL     &kp HASH      &eur          &kp PERCENT  
+//         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+             &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ____                     &kp MINUS     &kp PLUS      &kp AT        &kp AMPS      &kp BSLH
+//╭──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────╮
+    ____     ____          ____          ____          ____          ____                     &kp TILDE     &kp STAR      &kp CARET     &kp PIPE      &kp FSLH        ____
+//╰──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────╯
+                                         ____          ____          ____                     ____           ____           ____  
+//                                     ╰─────────────┴─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────┴─────────────╯ 
+)
 
-            label = "SYMC";
-        };
+ZMK_LAYER(nav,
+//         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+             ____          ____          &kp LS(TAB)   &swapper      ____                     &kp PG_UP     NAV_BSPC      NAV_UP        NAV_DEL       &kp PRINTSCREEN  
+//         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+             &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ____                     &kp PG_DN     NAV_LEFT      NAV_DOWN      NAV_RIGHT     &kp RET
+//╭──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────╮
+    ____     ____          ____          ____          ____          ____                     &kp INS       &kp TAB       &kp LT        &kp GT        ____             ____
+//╰──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────╯
+                                         ____          ____          ____                     ____           ____           ____   
+//                                     ╰─────────────┴─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────┴─────────────╯ 
+)
 
-        numblock {
-            bindings = <
-       &kp COLON  &kp N7  &kp N8  &kp N9      &mt KP_DIVIDE KP_MULTIPLY    &none          &none      &none      &none     &none
-       &none      &kp N4  &kp N5  &kp N6      &mt KP_SUBTRACT KP_PLUS      &kp BACKSPACE  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
-&none  &none      &kp N1  &kp N2  &kp N3      &none                        &kp DELETE     &none      &none      &none     &none     &none
-                          &kp N0  &kp KP_DOT  &lt 6 SPACE                  &none          &none      &none
-            >;
+ZMK_LAYER(sym_code,
+       &mt CARET ASTERISK  &kp LEFT_BRACE              &kp COLON           &kp RIGHT_BRACE                 &kp AMPERSAND    ____           ____       ____       ____      ____ 
+       &kp EXCLAMATION     &kp LEFT_PARENTHESIS        &kp EQUAL           &kp RIGHT_PARENTHESIS           &kp QUESTION     &kp BACKSPACE  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
+____   &kp DOLLAR          &mt LESS_THAN LEFT_BRACKET  &kp MINUS           &mt GREATER_THAN RIGHT_BRACKET  &kp PIPE         &kp DELETE     ____       ____       ____      ____      ____ 
+                                                       &mt HASH BACKSLASH  &kp TAB                         &kp SPACE        ____           ____       ____ 
+)
 
-            label = "numb";
-        };
+ZMK_LAYER(numblock,
+       &kp COLON  &kp N7  &kp N8  &kp N9      &mt KP_DIVIDE KP_MULTIPLY    ____  ____       ____       ____      ____ 
+       ____       &kp N4  &kp N5  &kp N6      &mt KP_SUBTRACT KP_PLUS      ____  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
+____   ____       &kp N1  &kp N2  &kp N3      ____                         ____  ____       ____       ____      ____      ____ 
+                          &kp N0  &kp DOT  &lt FN SPACE                 ____           ____       ____ 
+)
 
-        numfunctions {
-            bindings = <
+ZMK_LAYER(numf,
        &none  &kp F7  &kp F8  &kp F9  &kp F10    &bt BT_CLR  &bt BT_PRV  &bt BT_PRV  &none        &out OUT_TOG
        &none  &kp F4  &kp F5  &kp F6  &kp F11    &none       &sk RSHFT   &sk RCTRL   &sk RALT     &sk RGUI
 &none  &none  &kp F1  &kp F2  &kp F3  &kp F12    &none       &none       &none       &bootloader  &sys_reset    &none
                       &none   &none   &none      &none       &none       &none
-            >;
+)
 
-            label = "numf";
-        };
-
-        shortcuts {
-            bindings = <
-       &none      &kp LC(W)  &none      &kp LC(R)  &kp LC(T)    &none  &none      &none      &none     &none
-       &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(K)    &none  &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
-&none  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(V)  &kp LC(Y)    &none  &none      &none      &none     &none     &none
-                             &none      &none      &sl 8        &none  &none      &none
-            >;
-
-            label = "shortcuts";
-        };
-
-        idea {
-            bindings = <
-       &kp F2         &none          &kp F6         &kp LA(F7)     &none                &none  &none  &none  &none  &none
-       &kp LS(LSHFT)  &kp LC(N)      &kp LS(LC(N))  &kp LS(LC(A))  &kp LS(LC(LA(T)))    &none  &none  &none  &none  &none
-&to 0  &kp LA(LC(M))  &kp LA(LC(P))  &kp LA(LC(C))  &kp LA(LC(V))  &none                &none  &none  &none  &none  &none  &none
-                                     &none          &none          &none                &none  &none  &none
-            >;
-
-            label = "idea";
-        };
-
-        i3 {
-            bindings = <
-       &kp LG(Q)        &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)      &kp LG(ESCAPE)  &none          &none              &none      &none
-       &kp LG(LC(A))    &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)      &none           &kp LG(H)      &kp LG(J)          &kp LG(K)  &kp LG(L)
-&none  &kp LG(LS(TAB))  &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &kp LG(TAB)    &none           &none          &none              &none      &none      &none
+ZMK_LAYER(shortcuts,
+       ____       &kp LC(W)  ____       &kp LC(R)  &kp LC(T)    ____   ____       ____       ____      ____ 
+       &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(K)    ____   &sk RSHFT  &sk RCTRL  &sk RALT  &sk RGUI
+____   &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(V)  &kp LC(Y)    ____   ____       ____       ____      ____      ____ 
+                             ____       ____       &kp LA(LS(V))     ____   ____       ____ 
+)
+ZMK_LAYER(idea,
+       &kp F2         ____           &kp F6         &kp LA(F7)     ____                 ____   ____   ____   ____   ____ 
+       &kp LS(LSHFT)  &kp LC(N)      &kp LS(LC(N))  &kp LS(LC(A))  &kp LS(LC(LA(T)))    ____   ____   ____   ____   ____ 
+&to 0  &kp LA(LC(M))  &kp LA(LC(P))  &kp LA(LC(C))  &kp LA(LC(V))  ____                 ____   ____   ____   ____   ____   ____ 
+                                     ____           ____           ____                 ____   ____   ____ 
+)
+ZMK_LAYER(wm,
+       &kp LG(Q)        &kp LG(N7)  &kp LG(N8)  &kp LG(N9)  &kp LG(R)      &kp LG(ESCAPE)  ____           ____               ____       ____ 
+       &kp LG(LC(A))    &kp LG(N4)  &kp LG(N5)  &kp LG(N6)  &kp LG(F)      ____            &kp LG(H)      &kp LG(J)          &kp LG(K)  &kp LG(L)
+____   &kp LG(LS(TAB))  &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &kp LG(TAB)    ____            ____           ____               ____       ____       ____ 
                                     &kp LALT    &kp LCTRL   &kp LSHFT      &kp LG(SPACE)   &kp LG(ENTER)  &kp LG(BACKSPACE)
-            >;
+)
 
-            label = "i3";
-        };
-    };
-};
+
+ZMK_LAYER(mouse,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+             ____           ____           ____           ____           ____                      ____           U_WH_D        U_MS_U         U_WH_U       ____             
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+             ____           ____           ____           ____           ____                      ____           U_MS_L        U_MS_D         U_MS_R       ____             
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    ____     ____           ____           ____           ____           ____                      ____           ____           ____            ____          ____             ____
+//├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤
+                                         ____           ____           ____                      U_BTN3        U_BTN2        U_BTN1                                      
+//╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯
+)
+
+
+ZMK_LAYER(uc,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+             ____           &el_omega     &el_phi       &el_pi        &el_beta                 ____           &el_lambda    &el_upsilon   &el_psi       &de_eszett      
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+             &el_alpha     &el_rho       &el_sigma     &el_tau       &el_gamma                &el_mu        &el_nu        &el_epsilon   &el_iota      &el_omikron     
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    ____     &el_zeta      &el_xi        &el_chi       &el_delta     &el_theta                &el_kappa     &el_eta       &de_ae        &de_oe        &de_ue          ____
+//├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤
+                                         ____           ____           ____                      ____           ____           ____                                         
+//╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰───────────────────────────╯                                           ╰──────╯
+)

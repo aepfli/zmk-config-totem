@@ -219,6 +219,12 @@ ZMK_BEHAVIOR(copy_cut, tap_dance,
     bindings = <&kp LC(INS)>, <&kp LC(X)>;
 )
 
+// tap: paste | double-tap: alt shift v
+ZMK_BEHAVIOR(paste_q, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&kp LC(V)>, <&kp LS(LA(V))>;
+)
+
 ZMK_BEHAVIOR(mo_tog, hold_tap,
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
@@ -249,7 +255,7 @@ ZMK_LAYER(base,
 
 ZMK_LAYER(sym_type,
 //         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-             ____          ____          ____          ____          ____                     &kp UNDER     &kp EQUAL     &kp HASH      &eur          &kp PERCENT  
+             ____          ____          ____          ____          ____                     &kp UNDER     &kp EQUAL     &kp HASH      &kp PERCENT   &kp GRAVE  
 //         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
              &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ____                     &kp MINUS     &kp PLUS      &kp AT        &kp AMPS      &kp BSLH
 //╭──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────╮

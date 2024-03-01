@@ -19,7 +19,7 @@ ZMK_COMBO(esc,      &kp ESC,       LT4 LT3,     ALL, COMBO_TERM_FAST)
 
 ZMK_COMBO(enter,    &kp ENTER,     RT4 RT3,     ALL, COMBO_TERM_FAST)
 
-ZMK_COMBO(ctrldel,  &kp LC(BSPC),  RH0 RH1,     ALL, COMBO_TERM_FAST)
+//ZMK_COMBO(ctrldel,  &kp LC(BSPC),  RH0 RH1,     ALL, COMBO_TERM_FAST)
 
 ZMK_COMBO(paste,    &paste_q,      LB1 LB2,     ALL, COMBO_TERM_FAST)
 

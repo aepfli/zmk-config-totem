@@ -4,10 +4,15 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: urob
       url-base: https://github.com/urob
+    - name: englmaxi
+      url-base: https://github.com/englmaxi
   projects:
     - name: zmk
       remote: urob
-      revision: main-with-native-mouse
+      revision: main
       import: app/west.yml
+    - name: zmk-dongle-display
+      remote: englmaxi
+      revision: win
   self:
     path: config

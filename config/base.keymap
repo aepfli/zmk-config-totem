@@ -1,0 +1,357 @@
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
+
+
+#include "../zmk-nodefree-config/helper.h"
+
+#include "mouse.dtsi"
+
+#define DEF     0
+#define SYMT    1
+#define NAV     2
+#define SYMC    3
+#define NUM     4
+#define FN      5
+#define IDEA    6
+#define MOUSE   7
+
+#include "combos.dtsi"  // requires layer aliases
+#include "extra_keys.h"
+
+#define XXXX &none
+#define ____ &trans
+
+#define QUICK_TAP_MS 175
+
+&sk {  // sticky-key config
+    release-after-ms = <900>;  // release after 0.6s
+    quick-release;             // no double capitalization when rolling keys
+};
+
+&sl {  // sticky-layer config
+    ignore-modifiers;          // allow chording sticky mods & layers
+};
+
+&lt {  // layer-tap config
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+};
+
+
+/* Homerow mods */
+
+#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // left hand
+#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4 // right hand
+#define THUMBS LH2 LH1 LH0 RH0 RH1 RH2                                      // thumbs
+
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS) \
+    ZMK_BEHAVIOR(NAME, hold_tap, \
+        flavor = "balanced"; \
+        tapping-term-ms = <280>; \
+        quick-tap-ms = <QUICK_TAP_MS>; \
+        require-prior-idle-ms = <150>; \
+        bindings = <HOLD>, <TAP>; \
+        hold-trigger-key-positions = <TRIGGER_POS>; \
+        hold-trigger-on-release; \
+    )
+
+MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS)  // left-hand HRMs
+MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
+
+MAKE_HRM(hml_repeat, &kp, &key_repeat, KEYS_R THUMBS)  // used for HRM-combo
+MAKE_HRM(hmr_lpar_lt, &kp, &lpar_lt, KEYS_L THUMBS)    // "    "   "   "
+MAKE_HRM(hmr_rpar_gt, &kp, &rpar_gt, KEYS_L THUMBS)    // "    "   "   "
+
+
+/* Nav cluster */
+
+// long-tap action on hold, short-tap action on all interrupts
+#define MT_CORE \
+    flavor = "tap-preferred"; \
+    tapping-term-ms = <220>; \
+    quick-tap-ms = <220>; \
+    hold-trigger-key-positions = <0>;\
+
+&mt { MT_CORE };
+ZMK_BEHAVIOR(mt_home, hold_tap, bindings = <&masked_home>, <&kp>; MT_CORE)
+ZMK_BEHAVIOR(mt_end,  hold_tap,  bindings = <&masked_end>, <&kp>; MT_CORE)
+
+#define NAV_LEFT  &mt_home 0   LEFT    // tap: left  | long-tap: beginning of line
+#define NAV_RIGHT &mt_end 0    RIGHT   // tap: right | long-tap: end       of line
+#define NAV_UP    &mt LC(HOME) UP      // tap: up    | long-tap: beginning of document
+#define NAV_DOWN  &mt LC(END)  DOWN    // tap: down  | long-tap: end       of document
+#define NAV_BSPC  &mt LC(BSPC) BSPC    // tap: bspc  | long-tap: delete word backward
+#define NAV_DEL   &mt LC(DEL)  DEL     // tap: del   | long-tap: delete word forward
+
+// mask CTRL when holding left/right to avoid accidental jumps to beginning/end of document
+#define MASK_MODS(NAME, MODS, BINDING) \
+    ZMK_BEHAVIOR(NAME, mod_morph, \
+        bindings = <BINDING>, <BINDING>; \
+        mods = <MODS>; \
+    )
+
+MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
+MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
+
+/* Caps-word, num-word and smart-mouse */
+
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
+ZMK_BEHAVIOR(smart_shft, mod_morph,
+    bindings = <&sk LSHFT>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
+)
+&caps_word {  // mods deactivate caps-word, requires PR #1451
+    /delete-property/ ignore-modifiers;
+};
+
+// tap: num-word | double-tap: sticky num-layer | hold: num-layer
+#define SMART_NUM &smart_num NUM 0
+ZMK_BEHAVIOR(smart_num, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&num_dance>;
+)
+ZMK_BEHAVIOR(num_dance, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&num_word>, <&sl NUM>;  // reverse this for sticky-num on single tap
+)
+&num_word {  // num-word, requires PR #1451
+    layers = <NUM>;
+    continue-list = <BSPC DEL DOT COMMA PLUS MINUS STAR FSLH EQUAL>;
+};
+
+// smart-mouse, requires PR #1366
+ZMK_BEHAVIOR(smart_mouse, tri_state,
+    bindings = <&tog MOUSE>, <____ >, <&tog MOUSE>;
+    ignored-key-positions = <LT1 LT3 RT1 RT2 RT3 RM1 RM2 RM3 RH0 RH1 RH2>;
+    ignored-layers = <MOUSE>;
+)
+
+/* Custom behaviors */
+
+// Alt+Tab swapper, requires PR #1366
+ZMK_BEHAVIOR(swapper, tri_state,
+    bindings = <&kt LGUI>, <&kp TAB>, <&kt LGUI>;
+    ignored-key-positions = <LT2>;
+)
+
+// reuse basic mod-morph scheme
+#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2) \
+    ZMK_BEHAVIOR(NAME, mod_morph, \
+        mods = <(MOD_L ## MOD|MOD_R ## MOD)>; \
+        bindings = <BINDING1>, <BINDING2>; \
+    )
+
+// tap: comma | shift + tap: semicolon | ctrl + shift + tap: <
+SIMPLE_MORPH(comma_morph, SFT, &kp COMMA, &comma_inner_morph)
+SIMPLE_MORPH(comma_inner_morph, CTL, &kp SEMICOLON, &kp LESS_THAN)
+
+// tap: dot | shift + tap: colon | ctrl + shift + tap: >
+SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &dot_inner_morph)
+SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
+
+
+// tap: sqt | shift + tap: dqt | ctrl + shift + tap: backtick
+SIMPLE_MORPH(sqt_morph, CTL, &kp SQT, &kp GRAVE)
+
+// tap: qmark | shift + tap: excl
+SIMPLE_MORPH(qexcl, SFT, &kp QMARK, &kp EXCL)
+
+// tap: left/right parenthesis | shft + tap: less-than/greater-than
+SIMPLE_MORPH(lpar_lt, SFT, &kp LPAR, &kp LT)
+SIMPLE_MORPH(rpar_gt, SFT, &kp RPAR, &kp GT)
+
+// tap: space | shift + tap: dot -> space -> sticky shift | hold: activate layer
+ZMK_BEHAVIOR(lt_spc, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&spc_morph>;
+)
+SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &dot_spc)
+ZMK_BEHAVIOR(dot_spc, macro,
+    wait-ms = <0>;
+    tap-ms = <5>;
+    bindings = <&kp DOT &kp SPACE &sk LSHFT>;
+)
+
+// tap: backspace | lshft + tap: delete | rshft + tap: shift-delete
+ZMK_BEHAVIOR(bs_del, mod_morph,
+    bindings = <&kp BSPC>, <&kp DEL>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+    keep-mods = <MOD_RSFT>;
+)
+
+ZMK_BEHAVIOR(del_dc, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&bs_del>, <&kp LC(BSPC)>;
+)
+
+// tap: copy | double-tap: cut
+ZMK_BEHAVIOR(copy_cut, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&kp LC(INS)>, <&kp LC(X)>;
+)
+
+// tap: paste | double-tap: alt shift v
+ZMK_BEHAVIOR(paste_q, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&kp LC(V)>, <&kp LS(LA(V))>;
+)
+
+ZMK_BEHAVIOR(mo_tog, hold_tap,
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&tog>;
+    require-prior-idle-ms = <100>;
+)
+
+ZMK_BEHAVIOR(repmo, hold_tap,
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&key_repeat>;
+    require-prior-idle-ms = <100>;
+)
+
+ZMK_UNICODE_SINGLE(eur, N2, N0, A, C)
+
+#define T_R_MAIN &lt_spc SYMT 0
+#define T_L_MAIN &repmo SYMC 0
+
+ZMK_LAYER(base,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+    X_LT     &kp Q         &kp W         &kp E         &kp R         &kp T           &kp Y         &kp U         &kp I         &kp O         &sqt_morph      X_RT
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LM     &hml LGUI A   &hml LALT S   &hml LCTRL D  &hml LSHFT F  &kp G           &kp H         &hmr RSHFT J  &hmr LCTRL K  &hmr LALT L   &hmr LGUI P     X_RM
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LB     &kp Z         &kp X         &kp C         &kp V         &kp B           &kp N         &kp M         &comma_morph  &dot_morph    &qexcl          X_RB
+//├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯ ├──────┤
+    X_LH                                 &smart_shft   &lt NAV TAB   T_R_MAIN        T_L_MAIN      &del_dc       SMART_NUM                                   X_RH
+//╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
+)
+
+ZMK_LAYER(sym_type,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+    X_LT     ____          ____          ____          ____          ____            &kp UNDER     &kp EQUAL     &kp HASH      &kp PERCENT   &kp GRAVE       X_RT
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LM     &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ____            &kp MINUS     &kp PLUS      &kp AT        &kp AMPS      &kp BSLH        X_RM
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LB     ____          ____          ____          ____          ____            &kp TILDE     &kp STAR      &kp CARET     &kp PIPE      &kp FSLH        X_RB
+//├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯ ├──────┤
+    X_LH                                 ____          ____          ____            ____           ____           ____                                      X_RH
+//╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
+)
+
+#define I3_1    &mt LS(LG(N1)) LA(LG(N1))
+#define I3_2    &mt LS(LG(N2)) LA(LG(N2))
+#define I3_3    &mt LS(LG(N3)) LA(LG(N3))
+#define I3_4    &mt LS(LG(N4)) LA(LG(N4))
+#define I3_5    &mt LS(LG(N5)) LA(LG(N5))
+#define I3_SCR  &mt LG(LC(M)) LG(LC(A))
+#define I3_Q    &mt LG(LA(Q)) LG(LS(Q))
+#define I3_F    &mt LG(F) LG(LS(F))
+ZMK_LAYER(nav,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+    X_LT     I3_Q          ____          &kp LS(TAB)   &swapper      I3_SCR          &kp PG_UP     NAV_BSPC      NAV_UP        NAV_DEL       &kp PSCRN       X_RT
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LM     &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     I3_F            &kp PG_DN     NAV_LEFT      NAV_DOWN      NAV_RIGHT     &kp RET         X_RM
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LB     I3_1          I3_2          I3_3          I3_4          I3_5            &kp INS       &kp TAB       &kp LT        &kp GT        ____            X_RB
+//├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯ ├──────┤
+    X_LH                                 ____          ____          ____            &kp LG(SPACE)   &kp LG(RET)  &kp LG(BSPC)                               X_RH
+//╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
+)
+
+
+// tap: amps | shift + tap: pipe
+SIMPLE_MORPH(logic_op, SFT, &kp AMPS, &kp PIPE)
+
+// tap: dollar | shift + tap: caret
+SIMPLE_MORPH(code_dol, SFT, &kp DOLLAR, &kp CARET)
+
+// tap: semicolon | shift + tap: comma
+SIMPLE_MORPH(semi_morph, SFT, &kp SEMI, &kp COMMA)
+
+// tap: COLON | shift + tap: DOT
+SIMPLE_MORPH(col_morph, SFT, &kp COLON, &kp DOT)
+
+ZMK_LAYER(sym_code,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+    X_LT     &code_dol     &kp LBRC      &logic_op     &kp RBRC      &col_morph      ____          ____          ____          ____          ____            X_RT
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LM     &kp EXCL      &kp LPAR      &kp EQUAL     &kp RPAR      &qexcl          &kp BSPC      &sk RSHFT     &sk RCTRL     &sk RALT      &sk RGUI        X_RM
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LB     &kp DOLLAR    &kp LBKT      &kp MINUS     &kp RBKT      &semi_morph     &kp DELETE     ____         ____          ____          ____            X_RB
+//├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯ ├──────┤
+    X_LH                                 &mt HASH BSLH ____          ____            ____           ____         ____                                        X_RH
+//╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
+)
+
+#define N_DOT_OP &mt KP_DIVIDE KP_MULTIPLY
+#define N_DASH_OP &mt KP_SUBTRACT KP_PLUS
+
+ZMK_LAYER(numblock,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+    X_LT     &kp COLON     &kp N7        &kp N8        &kp N9        N_DOT_OP        ____          ____          ____          ____          ____            X_RT
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LM     ____          &kp N4        &kp N5        &kp N6        N_DASH_OP       ____          &sk RSHFT     &sk RCTRL     &sk RALT      &sk RGUI        X_RM
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LB     ____          &kp N1        &kp N2        &kp N3        ____            ____          ____          ____          ____          ____            X_RB
+//├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯ ├──────┤
+    X_LH                                 &kp N0        &kp DOT       &lt FN SPACE    ____          ____          ____                                        X_RH
+//╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
+)
+
+ZMK_LAYER(numf,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+    X_LT     ____          &kp F7        &kp F8        &kp F9        &kp F10         &bt BT_CLR    &bt BT_PRV    &bt BT_NXT    ____          &out OUT_TOG    X_RT
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LM     ____          &kp F4        &kp F5        &kp F6        &kp F11         ____          &sk RSHFT     &sk RCTRL     &sk RALT      &sk RGUI        X_RM
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LB     ____          &kp F1        &kp F2        &kp F3        &kp F12         ____          ____          ____          &bootloader   &sys_reset      X_RB
+//├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯ ├──────┤
+    X_LH                                 &none         &none         &none           ____          ____          ____                                        X_RH
+//╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
+)
+
+
+#define ID_GEN  &kp LA(INS)         // generate
+#define ID_M    &kp LA(LC(M))       // extract Method
+#define ID_P    &kp LA(LC(P))       // extract Parameter
+#define ID_C    &kp LA(LC(C))       // extract Constant
+#define ID_V    &kp LA(LC(V))       // extract Variable
+#define ID_RFT  &kp LS(LC(LA(T)))   // refactor this
+#define ID_USE  &kp LS(LA(N7))   // refactor this
+#define ID_S_A  &kp LS(LC(A))       // search actions
+#define ID_S_F  &kp LC(N)           // search class
+#define ID_TEST &mt LC(F5) LC(LS(F10)) // search classss
+
+ZMK_LAYER(idea,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    X_LT     &kp F2        ____          &kp LS(F6)    ID_USE        ID_TEST         ____          ____          ____          ____          ____
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    X_LM     ID_S_A        ID_S_F        ____          ID_GEN        ID_RFT          ____          &sk RSHFT     &sk RCTRL     &sk RALT      &sk RGUI
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    X_LB     ID_M          ID_P          ID_C          ID_V          ____            ____          ____          ____          ____          ____
+//├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
+    X_LH                                 ____          ____          ____            ____          ____          ____
+//╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯
+)
+
+ZMK_LAYER(mouse,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+    X_LT     ____          ____          ____          ____          ____                 U_WH_L       U_WH_D        U_MS_U         U_WH_U       U_WH_R
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LM     &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ____            ____           U_MS_L        U_MS_D         U_MS_R       ____
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LB     ____          ____          ____          ____          ____            ____            &mkp MB4            &mkp MB5            ____          ____
+//├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯
+    X_LH                                 ____          ____          ____            &mkp LCLK        &mkp MCLK        &mkp RCLK
+//╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                                         ╰──────╯
+)
+

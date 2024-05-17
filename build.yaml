@@ -8,4 +8,13 @@ include:
     artifact-name: totem_dongle
   - board: seeeduino_xiao_ble
     shield: settings_reset
+    artifact-name: seed_reset
+
+  - board: nice_nano_v2
+    shield: dasbob_left
+  - board: nice_nano_v2
+    shield: dasbob_right
+  - board:  nice_nano_v2
+    shield: settings_reset
+    artifact-name: nicenano_reset
 # there is no settingsreset (needed) for the XIAO

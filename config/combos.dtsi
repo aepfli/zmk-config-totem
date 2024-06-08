@@ -15,19 +15,22 @@
 #define COMBO_TERM_FAST 45
 #define COMBO_TERM_SLOW 45
 
-ZMK_COMBO(gt,      &kp GT,       LB1 LB2,     SYMC, COMBO_TERM_FAST)
-ZMK_COMBO(lt,      &kp LT,       LB2 LB3,     SYMC, COMBO_TERM_FAST)
+ZMK_COMBO(gt,         &kp GT,         LB1 LB2,     SYMC, COMBO_TERM_FAST)
+ZMK_COMBO(lt,         &kp LT,         LB2 LB3,     SYMC, COMBO_TERM_FAST)
 
-ZMK_COMBO(esc,      &kp ESC,       LT4 LT3,     ALL, COMBO_TERM_FAST)
+ZMK_COMBO(esc,        &kp ESC,        LT4 LT3,     ALL, COMBO_TERM_FAST)
 
-ZMK_COMBO(enter,    &kp ENTER,     RT4 RT3,     ALL, COMBO_TERM_FAST)
+ZMK_COMBO(enter,      &kp ENTER,      RT4 RT3,     ALL, COMBO_TERM_FAST)
+ZMK_COMBO(ente2,      &kp ENTER,      RT1 RT2,     ALL, COMBO_TERM_FAST)
+
+ZMK_COMBO(caps_word,  &caps_word,     LM1 RM1,     DEF, COMBO_TERM_FAST)
 
 //ZMK_COMBO(ctrldel,  &kp LC(BSPC),  RH0 RH1,     ALL, COMBO_TERM_FAST)
 
-ZMK_COMBO(paste,    &paste_q,      LB1 LB2,     DEF, COMBO_TERM_FAST)
+ZMK_COMBO(paste,       &paste_q,      LB1 LB2,     DEF, COMBO_TERM_FAST)
 
-ZMK_COMBO(cutcopy,  &copy_cut,     LB2 LB3,     DEF, COMBO_TERM_FAST)
-ZMK_COMBO(back,     &kp LC(Z),     LB3 LB4,     DEF, COMBO_TERM_FAST)
-ZMK_COMBO(forw,     &kp LC(Y),     LB0 LB1,     DEF, COMBO_TERM_FAST)
+ZMK_COMBO(cutcopy,     &copy_cut,     LB2 LB3,     DEF, COMBO_TERM_FAST)
+ZMK_COMBO(back,        &kp LC(Z),     LB3 LB4,     DEF, COMBO_TERM_FAST)
+ZMK_COMBO(forw,        &kp LC(Y),     LB0 LB1,     DEF, COMBO_TERM_FAST)
 
-ZMK_COMBO(idea,     &sl IDEA,       LM2 LM3,     DEF, COMBO_TERM_FAST)
+ZMK_COMBO(idea,        &sl IDEA,      LM2 LM3,     DEF, COMBO_TERM_FAST)

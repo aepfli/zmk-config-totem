@@ -2,8 +2,8 @@
 
 #include "../zmk-nodefree-config/keypos_def/keypos_38keys.h"
 
-#define X_LB  &kp LGUI      // thumb row, left
-#define X_RB  &smart_mouse  // thumb row, right
+#define X_LB  &none     // thumb row, left
+#define X_RB  &none  // thumb row, right
 
 /* source the main keymap */
 #include "base.keymap"

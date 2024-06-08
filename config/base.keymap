@@ -181,15 +181,38 @@ ZMK_BEHAVIOR(dot_spc, macro,
 )
 
 // tap: backspace | lshft + tap: delete | rshft + tap: shift-delete
-ZMK_BEHAVIOR(bs_del, mod_morph,
-    bindings = <&kp BSPC>, <&kp DEL>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    keep-mods = <MOD_RSFT>;
+//ZMK_BEHAVIOR(bs_del, mod_morph,
+//    bindings = <&kp BSPC>, <&kp DEL>;
+//    mods = <(MOD_LSFT|MOD_RSFT)>;
+//    keep-mods = <MOD_RSFT>;
+//)
+//
+//ZMK_BEHAVIOR(bs_dc, tap_dance,
+//    tapping-term-ms = <200>;
+//    bindings = <&bs_del>, <&kp LC(BSPC)>;
+//)
+ZMK_BEHAVIOR(lt_bs, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&bs_dc>;
+)
+
+ZMK_BEHAVIOR(bs_dc, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&kp BSPC>, <&kp LC(BSPC)>;
+)
+// tap: delete | double-tap: shift-delete | hold: activate layer
+ZMK_BEHAVIOR(lt_del, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&del_dc>;
 )
 
 ZMK_BEHAVIOR(del_dc, tap_dance,
     tapping-term-ms = <200>;
-    bindings = <&bs_del>, <&kp LC(BSPC)>;
+    bindings = <&kp DEL>, <&kp LS(DEL)>;
 )
 
 // tap: copy | double-tap: cut
@@ -220,12 +243,11 @@ ZMK_BEHAVIOR(repmo, hold_tap,
 
 ZMK_UNICODE_SINGLE(eur, N2, N0, A, C)
 
-
 #define T_R_LFT &repmo MOUSE 0
-#define T_R_MID &lt_spc NAV 0
-#define T_R_RGT &lt SYMT TAB
-#define T_L_LFT &repmo SYMC 0
-#define T_L_MID &del_dc
+#define T_R_MID &lt NAV TAB
+#define T_R_RGT &lt_spc SYMT 0
+#define T_L_LFT &lt_del SYMC 0
+#define T_L_MID &lt_bs IDEA 0
 #define T_L_RGT SMART_NUM
 
 ZMK_LAYER(base,
@@ -375,10 +397,4 @@ ZMK_LAYER(mouse,
 //╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
 )
 
-D
-del_dc
-do'd'odo'do'
-do'do'do'do'
-del_dc
-del_dc
-del_d
+

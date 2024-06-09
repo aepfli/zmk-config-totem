@@ -1,15 +1,7 @@
 
-# My ZMK config for the totem split keyboard
+# My ZMK config
 
-[Here](https://github.com/GEIGEIGEIST/totem) you can find the hardware files and build guide.
-
-TOTEM is a 38-key column-staggered split keyboard.
-My version is the Bluetooth version, assembled and provided by http://keep.supply.
-
-Additionally, I am using a third SEEED XIAO BLE as a dongle.
-
-![TOTEM layout](/docs/images/TOTEM_layout.svg)
-![my layout](/docs/images/my_keymap.svg)
+![my layout](/docs/images/totem.svg)
 
 ## General considerations
 
@@ -40,6 +32,13 @@ I wanted to create a more rolling motion from outward to inward, also like sunak
 
 ## Changelog
 
+### 2024-06-08
+                        
+- using urobs work as basis
+- adding DASBOB and generalization
+- rewoking some layers
+- reworking thumb keys (might need to move some layer activation too)
+
 ### 2024-01-18
 
 - home row mods instead of auto-shift
@@ -50,3 +49,16 @@ I wanted to create a more rolling motion from outward to inward, also like sunak
 As it turns out HRMs with auto-shift are a little bit complicated. 
 I opted into two layers, one with auto-shift, and one with HMRs.
 Let's see which one I prefer.
+
+## my keyboards
+
+### Totem
+
+[Here](https://github.com/GEIGEIGEIST/totem) you can find the hardware files and build guide.
+
+TOTEM is a 38-key column-staggered split keyboard.
+My version is the Bluetooth version, assembled and provided by http://keep.supply.
+
+Additionally, I am using a third SEEED XIAO BLE as a dongle.
+
+### DASBOB

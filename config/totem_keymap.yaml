@@ -1,0 +1,342 @@
+layout: {qmk_keyboard: totem}
+layers:
+  base:
+  - - Q
+    - W
+    - E
+    - R
+    - T
+    - Y
+    - U
+    - I
+    - O
+    - {t: '''', s: '`'}
+  - - {t: A, h: LGUI}
+    - {t: S, h: LALT}
+    - {t: D, h: LCTRL}
+    - {t: F, h: LSHFT}
+    - G
+    - H
+    - {t: J, h: RSHFT}
+    - {t: K, h: LCTRL}
+    - {t: L, h: LALT}
+    - {t: P, h: LGUI}
+  - - ''
+    - Z
+    - X
+    - C
+    - V
+    - B
+    - N
+    - M
+    - {t: ',', s: ;}
+    - {t: ., s: ':'}
+  - - {t: '?', s: '!'}
+    - ''
+    - {t: '&key_repeat', h: mouse}
+    - {t: TAB, h: nav}
+    - {t: SPACE, h: sym_type, s: '&dot_spc'}
+    - {t: '&del_dc', h: sym_code}
+    - {t: '&bs_dc', h: idea}
+    - {t: '&num_dance', h: numblock}
+  sym_type:
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - _
+    - '='
+    - '#'
+    - '%'
+    - '`'
+  - - {t: LGUI, h: sticky}
+    - {t: LALT, h: sticky}
+    - {t: LCTRL, h: sticky}
+    - {t: LSHFT, h: sticky}
+    - {t: ▽, type: trans}
+    - '-'
+    - +
+    - '@'
+    - '&'
+    - \
+  - - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '~'
+    - '*'
+    - ^
+    - '|'
+  - - /
+    - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  nav:
+  - - {t: Gui+Sft+ Q, h: Gui+Alt+ Q}
+    - {t: ▽, type: trans}
+    - Sft+ TAB
+    - '&swapper'
+    - {t: Gui+Ctl+ A, h: Gui+Ctl+ M}
+    - PG UP
+    - {t: BSPC, h: Ctl+ BSPC}
+    - {t: UP, h: Ctl+ HOME}
+    - {t: DEL, h: Ctl+ DEL}
+    - PSCRN
+  - - {t: LGUI, h: sticky}
+    - {t: LALT, h: sticky}
+    - {t: LCTRL, h: sticky}
+    - {t: LSHFT, h: sticky}
+    - {t: Gui+Sft+ F, h: Gui+ F}
+    - PG DN
+    - {t: LEFT, h: HOME}
+    - {t: DOWN, h: Ctl+ END}
+    - {t: RIGHT, h: END}
+    - {t: ▽, type: trans}
+  - - ''
+    - {t: Alt+Gui+ 1, h: Sft+Gui+ 1}
+    - {t: Alt+Gui+ 2, h: Sft+Gui+ 2}
+    - {t: Alt+Gui+ 3, h: Sft+Gui+ 3}
+    - {t: Alt+Gui+ 4, h: Sft+Gui+ 4}
+    - {t: Alt+Gui+ 5, h: Sft+Gui+ 5}
+    - INS
+    - TAB
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - ''
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - Gui+ SPACE
+    - Gui+ RET
+    - Gui+ BSPC
+  sym_code:
+  - - {t: $, s: ^}
+    - '{'
+    - {t: '&', s: '|'}
+    - '}'
+    - {t: ':', s: .}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: '!', s: '~'}
+    - (
+    - '='
+    - )
+    - {t: '?', s: '*'}
+    - BSPC
+    - {t: RSHFT, h: sticky}
+    - {t: RCTRL, h: sticky}
+    - {t: RALT, h: sticky}
+    - {t: RGUI, h: sticky}
+  - - ''
+    - {t: /, s: \}
+    - '['
+    - '-'
+    - ']'
+    - {t: ;, s: ','}
+    - DELETE
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - ''
+    - {t: '''', s: '`'}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  numblock:
+  - - ':'
+    - '7'
+    - '8'
+    - '9'
+    - {t: '*', s: /}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - '4'
+    - '5'
+    - '6'
+    - {t: +, s: '-'}
+    - {t: ▽, type: trans}
+    - {t: RSHFT, h: sticky}
+    - {t: RCTRL, h: sticky}
+    - {t: RALT, h: sticky}
+    - {t: RGUI, h: sticky}
+  - - ''
+    - {t: ▽, type: trans}
+    - '1'
+    - '2'
+    - '3'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - ''
+    - '0'
+    - .
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+  numf:
+  - - {t: ▽, type: trans}
+    - F7
+    - F8
+    - F9
+    - F10
+    - BT CLR
+    - BT PRV
+    - BT NXT
+    - {t: ▽, type: trans}
+    - OUT TOG
+  - - {t: ▽, type: trans}
+    - F4
+    - F5
+    - F6
+    - F11
+    - {t: ▽, type: trans}
+    - {t: RSHFT, h: sticky}
+    - {t: RCTRL, h: sticky}
+    - {t: RALT, h: sticky}
+    - {t: RGUI, h: sticky}
+  - - ''
+    - {t: ▽, type: trans}
+    - F1
+    - F2
+    - F3
+    - F12
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '&bootloader'
+  - - '&sys_reset'
+    - ''
+    - ''
+    - ''
+    - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  idea:
+  - - F2
+    - {t: ▽, type: trans}
+    - Sft+ F6
+    - Sft+Alt+ 7
+    - {t: Ctl+Sft+ F10, h: Ctl+ F5}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - Sft+Ctl+ A
+    - Ctl+ N
+    - {t: ▽, type: trans}
+    - Alt+ INS
+    - Meh+ T
+    - {t: ▽, type: trans}
+    - {t: RSHFT, h: sticky}
+    - {t: RCTRL, h: sticky}
+    - {t: RALT, h: sticky}
+    - {t: RGUI, h: sticky}
+  - - ''
+    - Alt+Ctl+ M
+    - Alt+Ctl+ P
+    - Alt+Ctl+ C
+    - Alt+Ctl+ V
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+  mouse:
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '&msc SCRL_LEFT'
+    - '&msc SCRL_DOWN'
+    - '&mmv MOVE_UP'
+    - '&msc SCRL_UP'
+    - '&msc SCRL_RIGHT'
+  - - {t: LGUI, h: sticky}
+    - {t: LALT, h: sticky}
+    - {t: LCTRL, h: sticky}
+    - {t: LSHFT, h: sticky}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '&mmv MOVE_LEFT'
+    - '&mmv MOVE_DOWN'
+    - '&mmv MOVE_RIGHT'
+    - {t: ▽, type: trans}
+  - - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '&mkp MB4'
+    - '&mkp MB5'
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - ''
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '&mkp LCLK'
+    - '&mkp MCLK'
+    - '&mkp RCLK'
+combos:
+- p: [24, 23]
+  k: '>'
+  l: [sym_code]
+- p: [23, 22]
+  k: <
+  l: [sym_code]
+- p: [0, 1]
+  k: ESC
+- p: [9, 8]
+  k: ENTER
+- p: [6, 7]
+  k: ENTER
+- p: [13, 16]
+  k: '&caps_word'
+  l: [base]
+- p: [24, 23]
+  k: '&paste_q'
+  l: [base]
+- p: [23, 22]
+  k: '&copy_cut'
+  l: [base]
+- p: [22, 21]
+  k: Ctl+ Z
+  l: [base]
+- p: [25, 24]
+  k: Ctl+ Y
+  l: [base]

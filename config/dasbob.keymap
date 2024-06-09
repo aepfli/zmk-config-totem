@@ -1,0 +1,6 @@
+
+
+#include "../zmk-nodefree-config/keypos_def/keypos_36keys.h"
+
+/* source the main keymap */
+#include "base.keymap"

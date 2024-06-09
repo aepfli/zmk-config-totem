@@ -1,0 +1,36 @@
+
+/*                KEY POSITIONS
+
+  ╭─────────────────────╮ ╭─────────────────────╮
+  │ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
+  │ LM4 LM3 LM2 LM1 LM0 │ │ RM0 RM1 RM2 RM3 RM4 │
+  │ LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
+  ╰───────╮ LH2 LH1 LH0 │ │ RH0 RH1 RH2 ╭───────╯
+          ╰─────────────╯ ╰─────────────╯ */
+
+// use require-prior-idle-ms for combos
+#undef COMBO_HOOK
+#define COMBO_HOOK require-prior-idle-ms = <150>;
+
+#define COMBO_TERM_FAST 45
+#define COMBO_TERM_SLOW 45
+
+ZMK_COMBO(gt,         &kp GT,         LB1 LB2,     SYMC, COMBO_TERM_FAST)
+ZMK_COMBO(lt,         &kp LT,         LB2 LB3,     SYMC, COMBO_TERM_FAST)
+
+ZMK_COMBO(esc,        &kp ESC,        LT4 LT3,     ALL, COMBO_TERM_FAST)
+
+ZMK_COMBO(enter,      &kp ENTER,      RT4 RT3,     ALL, COMBO_TERM_FAST)
+ZMK_COMBO(ente2,      &kp ENTER,      RT1 RT2,     ALL, COMBO_TERM_FAST)
+
+ZMK_COMBO(caps_word,  &caps_word,     LM1 RM1,     DEF, COMBO_TERM_FAST)
+
+//ZMK_COMBO(ctrldel,  &kp LC(BSPC),  RH0 RH1,     ALL, COMBO_TERM_FAST)
+
+ZMK_COMBO(paste,       &paste_q,      LB1 LB2,     DEF, COMBO_TERM_FAST)
+
+ZMK_COMBO(cutcopy,     &copy_cut,     LB2 LB3,     DEF, COMBO_TERM_FAST)
+ZMK_COMBO(back,        &kp LC(Z),     LB3 LB4,     DEF, COMBO_TERM_FAST)
+ZMK_COMBO(forw,        &kp LC(Y),     LB0 LB1,     DEF, COMBO_TERM_FAST)
+
+//ZMK_COMBO(idea,        &sl IDEA,      LM2 LM3,     DEF, COMBO_TERM_FAST)

@@ -4,15 +4,34 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: urob
       url-base: https://github.com/urob
+    - name: petejohanson
+      url-base: https://github.com/petejohanson
     - name: englmaxi
       url-base: https://github.com/englmaxi
+    - name: badjeff
+      url-base: https://github.com/badjeff
   projects:
     - name: zmk
-      remote: urob
-      revision: main
+      remote: badjeff
+      revision: feat/pointers-move-scroll
       import: app/west.yml
+    - name: cirque-input-module
+      remote: petejohanson
+      revision: main
     - name: zmk-dongle-display
       remote: englmaxi
       revision: win
+    - name: zmk-behavior-key-tempo
+      remote: badjeff
+      revision: main
+    - name: zmk-behavior-mouse-key-toggle
+      remote: badjeff
+      revision: main
+    - name: zmk-input-behavior-listener
+      remote: badjeff
+      revision: main
+    - name: zmk-hid-io
+      remote: badjeff
+      revision: main
   self:
     path: config

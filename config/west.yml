@@ -12,8 +12,8 @@ manifest:
       url-base: https://github.com/badjeff
   projects:
     - name: zmk
-      remote: badjeff
-      revision: feat/pointers-move-scroll
+      remote: urob
+      revision: main
       import: app/west.yml
     - name: cirque-input-module
       remote: petejohanson

@@ -42,29 +42,48 @@
             ;
     };
 };
-&xiao_spi {
+&xiao_spi { status = "disabled"; };
+&uart0 { status = "disabled"; };
 
-    pinnacle@42 {
-        compatible = "cirque,pinnacle-i2c";
-        label = "Pinnacle";
-        reg = <0x42>;
-   };
+&xiao_i2c {
+    status = "okay";
+    glidepoint: glidepoint@2a {
+        compatible = "cirque,pinnacle";
+        reg = <0x2a>;
+        status = "okay";
+        dr-gpios = <&xiao_d 4 (GPIO_ACTIVE_HIGH)>;
+
+        sensitivity = "1x";
+        // sleep;
+        // no-taps;
+    };
 };
-&xiao_i2c { status = "disabled"; };
+
+/ {
+  glidepoint_listener {
+    compatible = "zmk,input-listener";
+    device = <&glidepoint>;
+
+    xy-swap;
+    y-invert;
+    x-invert;
+    scale-multiplier = <1>;
+    scale-divisor = <1>;
+  };
+};
+
 &xiao_serial { status = "disabled"; };
 
 
 &kscan0 {
 	col-gpios
-        = <&xiao_d 4 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 5 GPIO_ACTIVE_HIGH>
+        = <&xiao_d 6 GPIO_ACTIVE_HIGH>
+        , <&xiao_d 7 GPIO_ACTIVE_HIGH>
         , <&xiao_d 10 GPIO_ACTIVE_HIGH>
         , <&xiao_d 9 GPIO_ACTIVE_HIGH>
         , <&xiao_d 8 GPIO_ACTIVE_HIGH>
 	;
 };
-
-#include "cirque_tpad.dtsi"
 
 #define INPUT_EV_KEY 0x01               /**< Key event */
 #define INPUT_EV_REL 0x02               /**< Relative coordinate event */
@@ -78,3 +97,4 @@
 #define INPUT_REL_WHEEL 0x08            /**< Relative wheel coordinate */
 #define INPUT_REL_HWHEEL 0x06           /**< Relative horizontal wheel coordinate */
 #define INPUT_REL_MISC 0x09             /**< Relative misc coordinate */
+

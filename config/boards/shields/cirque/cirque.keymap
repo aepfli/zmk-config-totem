@@ -36,24 +36,24 @@
 &lt { quick-tap-ms = <180>; };
 
 / {
-    tpad0_mmv_ibl {
+  /*  tpad0_mmv_ibl {
             compatible = "zmk,input-behavior-listener";
-            device = <&tpad0>;
+            device = <&glidepoint>;
             layers = <DEF>;
             // bindings = <&ib_tog_layer MSK>;
             // bindings = <&ib_fwd_to_hid_io>;
             y-invert;
-            /* NOTE: do NOT override event code here, */
-            /*       let Cirque glidepoint reports click from taps */
+            *//* NOTE: do NOT override event code here, *//*
+            *//*       let Cirque glidepoint reports click from taps *//*
     // evt-type = <INPUT_EV_REL>;
         // x-input-code = <INPUT_REL_X>;
         // y-input-code = <INPUT_REL_Y>;
     };
     tpad0_msl_ibl {
             compatible = "zmk,input-behavior-listener";
-            device = <&tpad0>;
+            device = <&glidepoint>;
             layers = <MSC>;
-            /* NOTE: only apply input-code overriding for INPUT_EV_REL */
+            *//* NOTE: only apply input-code overriding for INPUT_EV_REL *//*
             evt-type = <INPUT_EV_REL>;
             x-input-code = <INPUT_REL_MISC>;
             y-input-code = <INPUT_REL_WHEEL>;
@@ -65,7 +65,7 @@
             #binding-cells = <2>;
             evt-type = <INPUT_EV_REL>;
             input-code = <INPUT_REL_WHEEL>;
-    };
+    };*/
     combos {
     };
 

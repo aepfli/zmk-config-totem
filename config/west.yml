@@ -21,17 +21,17 @@ manifest:
     - name: zmk-dongle-display
       remote: englmaxi
       revision: win
-    - name: zmk-behavior-key-tempo
-      remote: badjeff
-      revision: main
-    - name: zmk-behavior-mouse-key-toggle
-      remote: badjeff
-      revision: main
-    - name: zmk-input-behavior-listener
-      remote: badjeff
-      revision: main
-    - name: zmk-hid-io
-      remote: badjeff
-      revision: main
+#    - name: zmk-behavior-key-tempo
+#      remote: badjeff
+#      revision: main
+#    - name: zmk-behavior-mouse-key-toggle
+#      remote: badjeff
+#      revision: main
+#    - name: zmk-input-behavior-listener
+#      remote: badjeff
+#      revision: main
+#    - name: zmk-hid-io
+#      remote: badjeff
+#      revision: main
   self:
     path: config

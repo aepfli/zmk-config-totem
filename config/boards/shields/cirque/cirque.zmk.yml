@@ -2,7 +2,7 @@ file_format: "1"
 id: cirque
 name: cirque
 type: shield
-url: https://github.com/GEIGEIGEIST/TOTEM
+url: https://github.com/aepfi/
 requires: [seeeduino_xiao_ble]
 features:
   - keys

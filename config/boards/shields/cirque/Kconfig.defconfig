@@ -7,7 +7,7 @@ config ZMK_KEYBOARD_NAME
     default "cirque"
 
 config ZMK_SPLIT_ROLE_CENTRAL
-    default y
+     default y
 
 config ZMK_USB
     default y

@@ -84,7 +84,7 @@
             label = "BASE";
             bindings = <
              &kp Q  &kp W  &kp E               &kp R      &kp T          &kp Y           &kp U            &kp I         &kp O    &kp SEMICOLON
-             &kp A  &kp S  &kp D               &kp F      &kp G          &kp H           &kp J            &kp K         &kp L    &kp P
+             &out OUT_TOG  &out OUT_BLE  &kp D               &kp F      &kp G          &kp H           &kp J            &kp K         &kp L    &kp P
 &none  &kp Z  &kp X  &kp C               &kp V      &kp B          &kp N           &kp M            &kp COMMA     &kp DOT  &kp FSLH       &kp BSLH
                            &none   &kp TAB  &kp  SPACE    &none   &kp  BACKSPACE  &kp  DELETE
             >;

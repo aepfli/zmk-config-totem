@@ -43,14 +43,14 @@
     };
 };
 &xiao_spi { status = "disabled"; };
-&uart0 { status = "disabled"; };
+&xiao_serial { status = "disabled"; };
 
 &xiao_i2c {
     status = "okay";
     // using the same register as for the oled, not sure if this is correct
-    glidepoint: glidepoint@3c {
-        compatible = "cirque,pinnacle-i2c";
-        reg = <0x3c>;
+    cirque: cirque@2a {
+        compatible = "cirque,pinnacle";
+        reg = <0x2a>;
         status = "okay";
         dr-gpios = <&xiao_d 4 (GPIO_ACTIVE_HIGH)>;
 
@@ -61,9 +61,9 @@
 };
 
 / {
-  glidepoint_listener {
+  cirque_listener {
     compatible = "zmk,input-listener";
-    device = <&glidepoint>;
+    device = <&cirque>;
 
     xy-swap;
     y-invert;
@@ -82,17 +82,3 @@
         , <&xiao_d 8 GPIO_ACTIVE_HIGH>
 	;
 };
-
-#define INPUT_EV_KEY 0x01               /**< Key event */
-#define INPUT_EV_REL 0x02               /**< Relative coordinate event */
-#define INPUT_EV_ABS 0x03               /**< Absolute coordinate event */
-#define INPUT_EV_MSC 0x04               /**< Miscellaneous event */
-#define INPUT_EV_VENDOR_START 0xf0      /**< Vendor specific event start */
-#define INPUT_EV_VENDOR_STOP 0xff       /**< Vendor specific event stop */
-
-#define INPUT_REL_X 0x00                /**< Relative X coordinate */
-#define INPUT_REL_Y 0x01                /**< Relative Y coordinate */
-#define INPUT_REL_WHEEL 0x08            /**< Relative wheel coordinate */
-#define INPUT_REL_HWHEEL 0x06           /**< Relative horizontal wheel coordinate */
-#define INPUT_REL_MISC 0x09             /**< Relative misc coordinate */
-

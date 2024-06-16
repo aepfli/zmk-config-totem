@@ -47,9 +47,10 @@
 
 &xiao_i2c {
     status = "okay";
-    glidepoint: glidepoint@2a {
-        compatible = "cirque,pinnacle";
-        reg = <0x2a>;
+    // using the same register as for the oled, not sure if this is correct
+    glidepoint: glidepoint@3c {
+        compatible = "cirque,pinnacle-i2c";
+        reg = <0x3c>;
         status = "okay";
         dr-gpios = <&xiao_d 4 (GPIO_ACTIVE_HIGH)>;
 
@@ -71,9 +72,6 @@
     scale-divisor = <1>;
   };
 };
-
-&xiao_serial { status = "disabled"; };
-
 
 &kscan0 {
 	col-gpios

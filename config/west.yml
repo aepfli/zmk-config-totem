@@ -4,6 +4,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: urob
       url-base: https://github.com/urob
+    - name: aepfli
+      url-base: https://github.com/aepfli
     - name: petejohanson
       url-base: https://github.com/petejohanson
     - name: englmaxi
@@ -12,8 +14,8 @@ manifest:
       url-base: https://github.com/badjeff
   projects:
     - name: zmk
-      remote: urob
-      revision: main
+      remote: petejohanson
+      revision: feat/pointers-move-scroll
       import: app/west.yml
     - name: cirque-input-module
       remote: petejohanson

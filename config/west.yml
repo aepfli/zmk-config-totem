@@ -18,7 +18,7 @@ manifest:
       revision: feat/pointers-move-scroll
       import: app/west.yml
     - name: cirque-input-module
-      remote: petejohanson
+      remote: badjeff
       revision: main
     - name: zmk-dongle-display
       remote: englmaxi

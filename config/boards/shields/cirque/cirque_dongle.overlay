@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 The ZMK Contributors
+ * Copyright (c) 2023 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
  */
@@ -41,4 +41,44 @@
             , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
     };
+};
+&xiao_spi { status = "disabled"; };
+&xiao_serial { status = "disabled"; };
+
+&xiao_i2c {
+    status = "okay";
+    // using the same register as for the oled, not sure if this is correct
+    cirque: cirque@2a {
+        compatible = "cirque,pinnacle";
+        reg = <0x2a>;
+        status = "okay";
+        dr-gpios = <&xiao_d 4 (GPIO_ACTIVE_HIGH)>;
+
+        sensitivity = "1x";
+        // sleep;
+        // no-taps;
+    };
+};
+
+/ {
+  cirque_listener {
+    compatible = "zmk,input-listener";
+    device = <&cirque>;
+
+    xy-swap;
+    y-invert;
+    x-invert;
+    scale-multiplier = <1>;
+    scale-divisor = <1>;
+  };
+};
+
+&kscan0 {
+	col-gpios
+        = <&xiao_d 6 GPIO_ACTIVE_HIGH>
+        , <&xiao_d 7 GPIO_ACTIVE_HIGH>
+        , <&xiao_d 10 GPIO_ACTIVE_HIGH>
+        , <&xiao_d 9 GPIO_ACTIVE_HIGH>
+        , <&xiao_d 8 GPIO_ACTIVE_HIGH>
+	;
 };

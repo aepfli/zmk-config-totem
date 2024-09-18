@@ -274,14 +274,48 @@ ZMK_LAYER(sym_type,
 //╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
 )
 
-#define I3_1    &mt LS(LG(N1)) LA(LG(N1))
-#define I3_2    &mt LS(LG(N2)) LA(LG(N2))
-#define I3_3    &mt LS(LG(N3)) LA(LG(N3))
-#define I3_4    &mt LS(LG(N4)) LA(LG(N4))
-#define I3_5    &mt LS(LG(N5)) LA(LG(N5))
+ZMK_BEHAVIOR(i3_sw, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&kp>, <&kp>;
+)
+
+ZMK_BEHAVIOR(i3_1, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N1)) LG(N1)>, <&kp LS(LG(N1))>;
+)
+
+ZMK_BEHAVIOR(i3_2, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N2)) LG(N2)>, <&kp LS(LG(N2))>;
+)
+
+ZMK_BEHAVIOR(i3_3, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N3)) LG(N3)>, <&kp LS(LG(N3))>;
+)
+
+ZMK_BEHAVIOR(i3_4, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N4)) LG(N4)>, <&kp LS(LG(N4))>;
+)
+
+ZMK_BEHAVIOR(i3_5, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N5)) LG(N5)>, <&kp LS(LG(N5))>;
+)
+#define I3_S(wsp) &as LS(keycode) keycode
+#define I3_1    &i3_1
+#define I3_2    &i3_2
+#define I3_3    &i3_3
+#define I3_4    &i3_4
+#define I3_5    &i3_5
 #define I3_SCR  &mt LG(LC(M)) LG(LC(A))
 #define I3_Q    &mt LG(LA(Q)) LG(LS(Q))
 #define I3_F    &mt LG(F) LG(LS(F))
+
+
 ZMK_LAYER(nav,
 //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
     X_LT     I3_Q          ____          &kp LS(TAB)   &swapper      I3_SCR          &kp PG_UP     NAV_BSPC      NAV_UP        NAV_DEL       &kp PSCRN       X_RT
@@ -367,11 +401,11 @@ ZMK_LAYER(numf,
 #define ID_P    &kp LA(LC(P))       // extract Parameter
 #define ID_C    &kp LA(LC(C))       // extract Constant
 #define ID_V    &kp LA(LC(V))       // extract Variable
-#define ID_RFT  &kp LS(LC(LA(T)))   // refactor this
-#define ID_USE  &kp LS(LA(N7))   // refactor this
+#define ID_RFT  &mt LS(LC(T)) LS(LC(LA(T)))   // refactor this
+#define ID_USE  &kp LS(LA(N7))      // usage
 #define ID_S_A  &kp LS(LC(A))       // search actions
 #define ID_S_F  &kp LC(N)           // search class
-#define ID_TEST &mt LC(F5) LC(LS(F10)) // search classss
+#define ID_TEST &mt LC(F5) LC(LS(F10)) // run test
 
 ZMK_LAYER(idea,
 //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮

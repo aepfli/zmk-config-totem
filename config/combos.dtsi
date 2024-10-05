@@ -12,7 +12,7 @@
 #undef COMBO_HOOK
 #define COMBO_HOOK require-prior-idle-ms = <150>;
 
-#define COMBO_TERM_FAST 45
+#define COMBO_TERM_FAST 80
 #define COMBO_TERM_SLOW 45
 
 ZMK_COMBO(gt,         &kp GT,         LB1 LB2,     SYMC, COMBO_TERM_FAST)

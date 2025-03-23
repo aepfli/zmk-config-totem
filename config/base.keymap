@@ -61,3 +61,69 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 #include "mouse.dtsi"
 #include "combos.dtsi"  // requires layer aliases
 #include "extra_keys.h"
+
+/* Nav cluster */
+// Trigger tap-action on all interrupts.
+#define MT_CORE                                                                \
+  flavor = "tap-preferred";                                                    \
+  tapping-term-ms = <220>;                                                     \
+  quick-tap-ms = <220>;                                                        \
+  hold-trigger-key-positions = <0>;
+
+&mt { MT_CORE };
+
+ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
+ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
+
+#define NAV_LEFT  &mt_home 0   LEFT    // tap: left  | long-tap: beginning of line
+#define NAV_RIGHT &mt_end 0    RIGHT   // tap: right | long-tap: end       of line
+#define NAV_UP    &mt LC(HOME) UP      // tap: up    | long-tap: beginning of document
+#define NAV_DOWN  &mt LC(END)  DOWN    // tap: down  | long-tap: end       of document
+#define NAV_BSPC  &mt LC(BSPC) BSPC    // tap: bspc  | long-tap: delete word backward
+#define NAV_DEL   &mt LC(DEL)  DEL     // tap: del   | long-tap: delete word forward
+
+// mask CTRL when holding left/right to avoid accidental jumps to beginning/end of document
+#define MASK_MODS(NAME, MODS, BINDING) \
+    ZMK_BEHAVIOR(NAME, mod_morph, \
+        bindings = <BINDING>, <BINDING>; \
+        mods = <MODS>; \
+    )
+
+MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
+MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
+
+/* Caps-word, num-word and smart-mouse */
+
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
+ZMK_BEHAVIOR(smart_shft, mod_morph,
+    bindings = <&sk LSHFT>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
+)
+&caps_word {  // mods deactivate caps-word, requires PR #1451
+    /delete-property/ ignore-modifiers;
+};
+
+// tap: num-word | double-tap: sticky num-layer | hold: num-layer
+#define SMART_NUM &smart_num NUM 0
+ZMK_BEHAVIOR(smart_num, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&num_dance>;
+)
+ZMK_BEHAVIOR(num_dance, tap_dance,
+    tapping-term-ms = <200>;
+bindings = <&num_word>, <&sl FN>;  // reverse this for sticky-num on single tap
+)
+&num_word {  // num-word, requires PR #1451
+    continue-list = <BSPC DEL DOT COMMA PLUS MINUS STAR FSLH EQUAL COLON>;
+};
+
+// smart-mouse, requires PR #1366
+ZMK_BEHAVIOR(smart_mouse, tri_state,
+    bindings = <&tog MOUSE>, <____ >, <&tog MOUSE>;
+    ignored-key-positions = <LT1 LT3 RT1 RT2 RT3 RM1 RM2 RM3 RH0 RH1 RH2>;
+    ignored-layers = <MOUSE>;
+)
+
+/* Custom behaviors */

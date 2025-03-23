@@ -32,7 +32,6 @@
 
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
         
         diode-direction = "col2row"; 
         row-gpios
@@ -43,7 +42,7 @@
             ;
     };
 };
-&xiao_spi { status = "disabled"; };
+//&xiao_spi { status = "disabled"; };
 &xiao_i2c { 
     status = "okay";
     
@@ -62,7 +61,7 @@
         prechargep = <0x22>;
     };
 };
-&xiao_serial { status = "disabled"; };
+//&xiao_serial { status = "disabled"; };
 
 
 

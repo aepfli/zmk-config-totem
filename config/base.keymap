@@ -118,11 +118,11 @@ ZMK_BEHAVIOR(smart_num, hold_tap,
 )
 ZMK_BEHAVIOR(num_dance, tap_dance,
     tapping-term-ms = <200>;
-    bindings = <&sl NUM>, <&sl FN>;  // reverse this for sticky-num on single tap
+bindings = <&num_word>, <&sl FN>;  // reverse this for sticky-num on single tap
 )
 &num_word {  // num-word, requires PR #1451
     layers = <NUM>;
-    continue-list = <BSPC DEL DOT COMMA PLUS MINUS STAR FSLH EQUAL>;
+    continue-list = <BSPC DEL DOT COMMA PLUS MINUS STAR FSLH EQUAL COLON>;
 };
 
 // smart-mouse, requires PR #1366
@@ -202,7 +202,7 @@ ZMK_BEHAVIOR(bs_dc, tap_dance,
     tapping-term-ms = <200>;
     bindings = <&kp BSPC>, <&kp LC(BSPC)>;
 )
-// tap: delete | double-tap: shift-delete | hold: activate layer
+// tap: delete | double-tap: control-delete | hold: activate layer
 ZMK_BEHAVIOR(lt_del, hold_tap,
     flavor = "balanced";
     tapping-term-ms = <200>;
@@ -212,7 +212,7 @@ ZMK_BEHAVIOR(lt_del, hold_tap,
 
 ZMK_BEHAVIOR(del_dc, tap_dance,
     tapping-term-ms = <200>;
-    bindings = <&kp DEL>, <&kp LS(DEL)>;
+    bindings = <&kp DEL>, <&kp LC(DEL)>;
 )
 
 // tap: copy | double-tap: cut
@@ -246,8 +246,8 @@ ZMK_UNICODE_SINGLE(eur, N2, N0, A, C)
 #define T_R_LFT &repmo MOUSE 0
 #define T_R_MID &lt NAV TAB
 #define T_R_RGT &lt_spc SYMT 0
-#define T_L_LFT &lt_del SYMC 0
-#define T_L_MID &lt_bs IDEA 0
+#define T_L_LFT &lt_bs SYMC 0
+#define T_L_MID &lt_del IDEA 0
 #define T_L_RGT SMART_NUM
 
 ZMK_LAYER(base,
@@ -266,22 +266,56 @@ ZMK_LAYER(sym_type,
 //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
     X_LT     ____          ____          ____          ____          ____            &kp UNDER     &kp EQUAL     &kp HASH      &kp PERCENT   &kp GRAVE       X_RT
 //├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
-    X_LM     &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ____            &kp MINUS     &kp PLUS      &kp AT        &kp AMPS      &kp BSLH        X_RM
+    X_LM     &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ____            &kp MINUS     &kp PLUS      &kp AT        &kp AMPS      &kp FSLH        X_RM
 //├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
-    X_LB     ____          ____          ____          ____          ____            &kp TILDE     &kp STAR      &kp CARET     &kp PIPE      &kp FSLH        X_RB
+    X_LB     ____          ____          ____          ____          ____            &kp TILDE     &kp STAR      &kp CARET     &kp PIPE      &kp BSLH        X_RB
 //├──────┤ ╰─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────╯ ├──────┤
     X_LH                                 ____          ____          ____            ____           ____           ____                                      X_RH
 //╰──────╯                             ╰─────────────┴─────────────┴─────────────╯ ╰─────────────┴─────────────┴─────────────╯                             ╰──────╯
 )
 
-#define I3_1    &mt LS(LG(N1)) LA(LG(N1))
-#define I3_2    &mt LS(LG(N2)) LA(LG(N2))
-#define I3_3    &mt LS(LG(N3)) LA(LG(N3))
-#define I3_4    &mt LS(LG(N4)) LA(LG(N4))
-#define I3_5    &mt LS(LG(N5)) LA(LG(N5))
+ZMK_BEHAVIOR(i3_sw, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&kp>, <&kp>;
+)
+
+ZMK_BEHAVIOR(i3_1, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N1)) LG(N1)>, <&kp LS(LG(N1))>;
+)
+
+ZMK_BEHAVIOR(i3_2, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N2)) LG(N2)>, <&kp LS(LG(N2))>;
+)
+
+ZMK_BEHAVIOR(i3_3, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N3)) LG(N3)>, <&kp LS(LG(N3))>;
+)
+
+ZMK_BEHAVIOR(i3_4, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N4)) LG(N4)>, <&kp LS(LG(N4))>;
+)
+
+ZMK_BEHAVIOR(i3_5, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&mt LA(LG(N5)) LG(N5)>, <&kp LS(LG(N5))>;
+)
+#define I3_S(wsp) &as LS(keycode) keycode
+#define I3_1    &i3_1
+#define I3_2    &i3_2
+#define I3_3    &i3_3
+#define I3_4    &i3_4
+#define I3_5    &i3_5
 #define I3_SCR  &mt LG(LC(M)) LG(LC(A))
 #define I3_Q    &mt LG(LA(Q)) LG(LS(Q))
 #define I3_F    &mt LG(F) LG(LS(F))
+
+
 ZMK_LAYER(nav,
 //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
     X_LT     I3_Q          ____          &kp LS(TAB)   &swapper      I3_SCR          &kp PG_UP     NAV_BSPC      NAV_UP        NAV_DEL       &kp PSCRN       X_RT
@@ -367,11 +401,11 @@ ZMK_LAYER(numf,
 #define ID_P    &kp LA(LC(P))       // extract Parameter
 #define ID_C    &kp LA(LC(C))       // extract Constant
 #define ID_V    &kp LA(LC(V))       // extract Variable
-#define ID_RFT  &kp LS(LC(LA(T)))   // refactor this
-#define ID_USE  &kp LS(LA(N7))   // refactor this
+#define ID_RFT  &mt LS(LC(T)) LS(LC(LA(T)))   // refactor this
+#define ID_USE  &kp LS(LA(N7))      // usage
 #define ID_S_A  &kp LS(LC(A))       // search actions
 #define ID_S_F  &kp LC(N)           // search class
-#define ID_TEST &mt LC(F5) LC(LS(F10)) // search classss
+#define ID_TEST &mt LC(F5) LC(LS(F10)) // run test
 
 ZMK_LAYER(idea,
 //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮

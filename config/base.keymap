@@ -150,7 +150,7 @@ SIMPLE_MORPH(lpar_lt, SFT, &kp LPAR, &kp LT)
 SIMPLE_MORPH(rpar_gt, SFT, &kp RPAR, &kp GT)
 
 // tap: space | shift + tap: dot -> space -> sticky shift | hold: activate layer
-ZMK_BEHAVIOR(lt_spc, hold_tap,
+ZMK_HOLD_TAP(lt_spc,
     flavor = "balanced";
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
@@ -174,7 +174,7 @@ ZMK_BEHAVIOR(dot_spc, macro,
 //    tapping-term-ms = <200>;
 //    bindings = <&bs_del>, <&kp LC(BSPC)>;
 //)
-ZMK_BEHAVIOR(lt_bs, hold_tap,
+ZMK_HOLD_TAP(lt_bs,
     flavor = "balanced";
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
@@ -186,7 +186,7 @@ ZMK_BEHAVIOR(bs_dc, tap_dance,
     bindings = <&kp BSPC>, <&kp LC(BSPC)>;
 )
 // tap: delete | double-tap: control-delete | hold: activate layer
-ZMK_BEHAVIOR(lt_del, hold_tap,
+ZMK_HOLD_TAP(lt_del,
     flavor = "balanced";
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
@@ -201,7 +201,7 @@ ZMK_BEHAVIOR(del_dc, tap_dance,
 // tap: copy | double-tap: cut
 ZMK_BEHAVIOR(copy_cut, tap_dance,
     tapping-term-ms = <200>;
-    bindings = <&kp LC(INS)>, <&kp LC(X)>;
+    bindings = <&kp LC(C)>, <&kp LC(X)>;
 )
 
 // tap: paste | double-tap: alt shift v
@@ -210,14 +210,14 @@ ZMK_BEHAVIOR(paste_q, tap_dance,
     bindings = <&kp LC(V)>, <&kp LS(LA(V))>;
 )
 
-ZMK_BEHAVIOR(mo_tog, hold_tap,
+ZMK_HOLD_TAP(mo_tog,
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
     bindings = <&mo>, <&tog>;
     require-prior-idle-ms = <100>;
 )
 
-ZMK_BEHAVIOR(repmo, hold_tap,
+ZMK_HOLD_TAP(repmo,
     tapping-term-ms = <200>;
     quick-tap-ms = <QUICK_TAP_MS>;
     bindings = <&mo>, <&key_repeat>;

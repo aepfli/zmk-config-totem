@@ -3,14 +3,20 @@
  *
  * SPDX-License-Identifier: MIT
  */
-
 #include <dt-bindings/zmk/matrix_transform.h>
 
 / {
     chosen {
-        zmk,kscan = &kscan0;
-        zmk,matrix_transform = &default_transform;
+        zmk,kscan = &mock_kscan;
+        zmk,physical-layout = &physical_layout0;  // New item added
         zephyr,display = &oled;
+    };
+
+    mock_kscan: mock_kscan_0 {
+        compatible = "zmk,kscan-mock";
+        columns = <0>;
+        rows = <0>;
+        events = <0>;
     };
 
     default_transform: keymap_transform_0 {
@@ -29,21 +35,13 @@
         >;
     };
 
-
-    kscan0: kscan_0 {
-        compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
-        
-        diode-direction = "col2row"; 
-        row-gpios
-            = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            ;
+    physical_layout0: physical_layout_0 {
+        compatible = "zmk,physical-layout";
+        display-name = "Default Layout";
+        transform = <&default_transform>;
     };
 };
-&xiao_spi { status = "disabled"; };
+//&xiao_spi { status = "disabled"; };
 &xiao_i2c { 
     status = "okay";
     
@@ -62,16 +60,5 @@
         prechargep = <0x22>;
     };
 };
-&xiao_serial { status = "disabled"; };
+//&xiao_serial { status = "disabled"; };
 
-
-
-&kscan0 {
-	col-gpios
-        = <&xiao_d 4 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 5 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 10 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 9 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 8 GPIO_ACTIVE_HIGH>
-	;
-};

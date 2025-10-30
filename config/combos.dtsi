@@ -29,13 +29,8 @@ ZMK_COMBO(caps_word,  &caps_word,     LM1 RM1,     DEF, COMBO_TERM_SLOW, COMBO_I
 
 ZMK_COMBO(warpd,      &kp LG(LA(X)),  LH0 RH0,     DEF, COMBO_TERM_SLOW, COMBO_IDLE_FAST)
 
-//ZMK_COMBO(ctrldel,  &kp LC(BSPC),   RH0 RH1,     ALL, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-
 ZMK_COMBO(paste,       &paste_q,      LB1 LB2,     DEF, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 ZMK_COMBO(cutcopy,     &copy_cut,     LB2 LB3,     DEF, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(back,        &kp LC(Z),     LB3 LB4,     DEF, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(forw,        &kp LC(Y),     LB0 LB1,     DEF, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-
-//ZMK_COMBO(idea,        &sl IDEA,      LM2 LM3,     DEF, COMBO_TERM_FAST)
-

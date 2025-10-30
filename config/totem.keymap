@@ -3,7 +3,7 @@
 #include "zmk-helpers/key-labels/totem.h"
 
 
-#define X_LB  &none     // thumb row, left
+#define X_LB  &tog MC     // thumb row, left
 #define X_RB  &none  // thumb row, right
 
 /* source the main keymap */
